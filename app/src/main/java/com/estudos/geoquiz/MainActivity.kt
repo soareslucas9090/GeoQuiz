@@ -107,7 +107,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun finishGame(){
-        binding.textQuestion.text = "Parabens, voce acertou ${hits} de ${questionBank.size}!"
+        val congratulation = getString(R.string.msgCongratulations, hits, questionBank.size)
+        binding.textQuestion.text = congratulation
         binding.buttonPrev.isEnabled = false
         binding.buttonNext.isEnabled = false
         binding.buttonTrue.isEnabled = false
