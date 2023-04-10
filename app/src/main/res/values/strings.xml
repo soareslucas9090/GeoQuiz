@@ -4,9 +4,11 @@
     <string name="buttonFalse">False</string>
     <string name="buttonNext">Next</string>
     <string name="buttonPrev">Prev</string>
+    <string name="buttonReset">Reset</string>
     <string name="msgCorrect">Correct!</string>
     <string name="msgWrong">Wrong!</string>
-    <string name="notPrev">Not allowed!</string>
+    <string name="msgNotPrev">Not allowed!</string>
+    <string name="msgReset">Reset!</string>
     <string name="question_australia">Canberra is the capital of Australia.</string>
     <string name="question_oceans">The Pacific Ocean is larger than the Atlantic Ocean.</string>
     <string name="question_mideast">The Suez Canal connects the Red Sea and the Indian Ocean.</string>

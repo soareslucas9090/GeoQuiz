@@ -74,4 +74,20 @@
         app:layout_constraintTop_toBottomOf="@id/text_question"
         />
 
+    <Button
+        android:id="@+id/button_Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/buttonReset"
+        android:drawableLeft="@drawable/ic_reset"
+        android:drawableTint="#FFF"
+        android:textColor="#FFFFFF"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_Next"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
