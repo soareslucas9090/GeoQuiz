@@ -2,30 +2,18 @@ package com.estudos.geoquiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import com.estudos.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlin.random.Random
-private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private lateinit var binding: ActivityMainBinding
 
-    private val questionBank = listOf(
-        Questions(R.string.question_australia, true),
-        Questions(R.string.question_oceans, true),
-        Questions(R.string.question_mideast, false),
-        Questions(R.string.question_africa, false),
-        Questions(R.string.question_americas, true),
-        Questions(R.string.question_asia, true))
-    private var currentIndex = 0
-    private var currentUsedIndex = 0
+    private val quizViewModel: QuizViewModel by viewModels()
 
-    private var hits = 0
-
-    private var used = mutableListOf(currentIndex)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -51,16 +39,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if(v.id == R.id.button_False)
                 answer = false
 
-            if (questionBank[currentIndex].answer == answer) {
-                hits++
-                Log.d(TAG, "Hits atualizado para ${hits}")
+            if (quizViewModel.currentQuestionAnswer == answer) {
+                quizViewModel.oneMoreHit()
                 Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
                 update()
             }
 
             else{
                 Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
-                Log.d(TAG, "Errou")
                 update()
             }
 
@@ -85,11 +71,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun update(){
-        if(currentUsedIndex < (questionBank.size - 1)) {
-            currentUsedIndex++
-            Log.d(TAG, "${currentIndex} -- ${currentUsedIndex}")
-            currentIndex = used[currentUsedIndex]
-            binding.textQuestion.setText(questionBank[currentIndex].textResId)
+        if(quizViewModel.currentUsedIndex < (quizViewModel.sizeQuestionBank - 1)) {
+            quizViewModel.oneMoreUsed()
+            quizViewModel.setCurrentIndex()
+            binding.textQuestion.setText(quizViewModel.currentQuestionText)
         }
         else {
             finishGame()
@@ -97,17 +82,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun previous(v: View){
-        if (currentUsedIndex > 0){
-            currentUsedIndex--
-            currentIndex = used[currentUsedIndex]
-            binding.textQuestion.setText(questionBank[currentIndex].textResId)
+        if (quizViewModel.currentUsedIndex > 0){
+            quizViewModel.oneLessUsed()
+            quizViewModel.setCurrentIndex()
+            binding.textQuestion.setText(quizViewModel.currentQuestionText)
         } else {
             Snackbar.make(v, R.string.msgNotPrev, Snackbar.LENGTH_LONG).show()
         }
     }
 
     private fun finishGame(){
-        val congratulation = getString(R.string.msgCongratulations, hits, questionBank.size)
+        val congratulation = getString(R.string.msgCongratulations, quizViewModel.currentHits, quizViewModel.sizeQuestionBank)
         binding.textQuestion.text = congratulation
         binding.buttonPrev.isEnabled = false
         binding.buttonNext.isEnabled = false
@@ -116,23 +101,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun buildQuestionList(){
-        used.clear()
-        while (used.size < 6) {
-            val numTemp = Random.nextInt(0, (questionBank.size))
-            if (!used.contains(numTemp)) {
-                used.add(numTemp)
-            }
-        }
-        Log.d(TAG, "${used}")
-        currentIndex = used[currentUsedIndex]
-        binding.textQuestion.setText(questionBank[currentIndex].textResId)
+        quizViewModel.buildQuestionList()
+        binding.textQuestion.setText(quizViewModel.currentQuestionText)
     }
 
     private fun resetGame(v: View){
-        currentIndex = 0
-        currentUsedIndex = 0
-        used.clear()
-        hits = 0
+        quizViewModel.resetGame()
         buildQuestionList()
         Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
         binding.buttonPrev.isEnabled = true
