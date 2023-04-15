@@ -3,6 +3,7 @@ package com.estudos.geoquiz
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
+//private const val TAG = "QuizViewModel"
 class QuizViewModel : ViewModel() {
 
     private val questionBank = listOf(
@@ -19,28 +20,50 @@ class QuizViewModel : ViewModel() {
 
     private var hits = 0
 
-    private var used = mutableListOf(currentIndex)
+    private var used = mutableListOf<Int>()
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
     val currentQuestionText: Int get() = questionBank[currentIndex].textResId
     val sizeQuestionBank: Int get() = questionBank.size
-    val currentUsedIndex: Int get() = usedIndex
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
-    fun oneMoreUsed() = usedIndex++
-    fun oneLessUsed() = usedIndex--
-    fun setCurrentIndex() { currentIndex = used[usedIndex] }
 
-    fun buildQuestionList(){
-        used.clear()
-        while (used.size < questionBank.size) {
-            val numTemp = Random.nextInt(0, (questionBank.size))
-            if (!used.contains(numTemp)) {
-                used.add(numTemp)
-            }
+    private fun setCurrentIndex() {
+        currentIndex = used[usedIndex]
+    }
+
+    fun update(): Boolean {
+        return if (usedIndex < (questionBank.size - 1)) {
+            usedIndex++
+            setCurrentIndex()
+            true
+        } else {
+            false
         }
-        setCurrentIndex()
+    }
+
+    fun previous(): Boolean {
+        return if (usedIndex > 0){
+            usedIndex--
+            setCurrentIndex()
+            true
+        } else {
+            false
+        }
+    }
+
+    fun buildQuestionList() {
+        if (used.isEmpty()) {
+            resetGame()
+            while (used.size < questionBank.size) {
+                val numTemp = Random.nextInt(0, (questionBank.size))
+                if (!used.contains(numTemp)) {
+                    used.add(numTemp)
+                }
+            }
+            setCurrentIndex()
+        }
     }
 
     fun resetGame() {
@@ -49,5 +72,4 @@ class QuizViewModel : ViewModel() {
         used.clear()
         hits = 0
     }
-
 }

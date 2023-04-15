@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.estudos.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
@@ -24,75 +25,117 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         buildQuestionList()
 
+        //Implementação com função OnClick
         binding.buttonTrue.setOnClickListener(this)
         binding.buttonFalse.setOnClickListener(this)
         binding.buttonNext.setOnClickListener(this)
         binding.buttonPrev.setOnClickListener(this)
         binding.buttonReset.setOnClickListener(this)
 
+        //Implementação com Lambda
+        /*
+        binding.buttonTrue.setOnClickListener {
+            response(it)
+        }
+
+        binding.buttonFalse.setOnClickListener {
+            response(it)
+        }
+
+        binding.buttonNext.setOnClickListener {
+            update()
+        }
+
+        binding.buttonPrev.setOnClickListener {
+            previous(it)
+        }
+
+        binding.buttonReset.setOnClickListener {
+            resetGame(it)
+        }
+
+        binding.textQuestion.setOnClickListener {
+            update()
+        }
+         */
     }
 
+    //Função para implementação com lambda
+
+    /*
+    private fun response(v:View) {
+        var answer = true
+        if (v.id == R.id.button_False)
+            answer = false
+
+        if (quizViewModel.currentQuestionAnswer == answer) {
+            quizViewModel.oneMoreHit()
+            Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
+            update()
+        } else {
+            Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
+            update()
+        }
+    }
+
+     */
+
     override fun onClick(v: View) {
-        if ((v.id == R.id.button_True) || (v.id == R.id.button_False)){
+        if ((v.id == R.id.button_True) || (v.id == R.id.button_False)) {
 
             var answer = true
-            if(v.id == R.id.button_False)
+            if (v.id == R.id.button_False)
                 answer = false
 
             if (quizViewModel.currentQuestionAnswer == answer) {
                 quizViewModel.oneMoreHit()
                 Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
                 update()
-            }
-
-            else{
+            } else {
                 Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
                 update()
             }
-
         }
 
-        if (v.id == R.id.button_Next){
+        if (v.id == R.id.button_Next) {
             update()
         }
 
-        if (v.id == R.id.button_Prev){
+        if (v.id == R.id.button_Prev) {
             previous(v)
         }
 
-        if (v.id == R.id.text_question){
+        if (v.id == R.id.text_question) {
             update()
         }
 
-        if (v.id == R.id.button_Reset){
+        if (v.id == R.id.button_Reset) {
             resetGame(v)
         }
 
     }
 
-    private fun update(){
-        if(quizViewModel.currentUsedIndex < (quizViewModel.sizeQuestionBank - 1)) {
-            quizViewModel.oneMoreUsed()
-            quizViewModel.setCurrentIndex()
+    private fun update() {
+        if (quizViewModel.update()) {
             binding.textQuestion.setText(quizViewModel.currentQuestionText)
-        }
-        else {
+        } else
             finishGame()
-        }
     }
 
-    private fun previous(v: View){
-        if (quizViewModel.currentUsedIndex > 0){
-            quizViewModel.oneLessUsed()
-            quizViewModel.setCurrentIndex()
+    private fun previous(v: View) {
+        if (quizViewModel.previous())
             binding.textQuestion.setText(quizViewModel.currentQuestionText)
-        } else {
+        else
             Snackbar.make(v, R.string.msgNotPrev, Snackbar.LENGTH_LONG).show()
-        }
     }
 
-    private fun finishGame(){
-        val congratulation = getString(R.string.msgCongratulations, quizViewModel.currentHits, quizViewModel.sizeQuestionBank)
+    private fun finishGame() {
+        val congratulation = getString(
+            R.string.msgCongratulations,
+            quizViewModel.currentHits,
+            quizViewModel.sizeQuestionBank
+        )
+
         binding.textQuestion.text = congratulation
         binding.buttonPrev.isEnabled = false
         binding.buttonNext.isEnabled = false
@@ -100,12 +143,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonFalse.isEnabled = false
     }
 
-    private fun buildQuestionList(){
+    private fun buildQuestionList() {
         quizViewModel.buildQuestionList()
         binding.textQuestion.setText(quizViewModel.currentQuestionText)
     }
 
-    private fun resetGame(v: View){
+    private fun resetGame(v: View) {
         quizViewModel.resetGame()
         buildQuestionList()
         Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
