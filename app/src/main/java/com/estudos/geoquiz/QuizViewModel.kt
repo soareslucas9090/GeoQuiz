@@ -1,10 +1,14 @@
 package com.estudos.geoquiz
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
+const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
+const val USED_INDEX_KEY = "USED_INDEX_KEY"
+const val HITS_KEY = "HITS_KEY"
 //private const val TAG = "QuizViewModel"
-class QuizViewModel : ViewModel() {
+class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private val questionBank = listOf(
         Questions(R.string.question_australia, true),
@@ -15,12 +19,20 @@ class QuizViewModel : ViewModel() {
         Questions(R.string.question_asia, true)
     )
 
-    private var currentIndex = 0
-    private var usedIndex = 0
+    var currentIndex
+        get() = savedStateHandle.get(CURRENT_INDEX_KEY) ?: 0
+        set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
 
-    private var hits = 0
+    private var usedIndex
+        get() = savedStateHandle.get(USED_INDEX_KEY) ?: 0
+        set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
+
+    private var hits
+        get() = savedStateHandle.get(HITS_KEY) ?: 0
+        set(value) = savedStateHandle.set(HITS_KEY, value)
 
     private var used = mutableListOf<Int>()
+
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
     val currentQuestionText: Int get() = questionBank[currentIndex].textResId

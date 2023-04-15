@@ -2,12 +2,13 @@ package com.estudos.geoquiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.estudos.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
-
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
+
+        Log.d(TAG,"Create")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -156,5 +159,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonNext.isEnabled = true
         binding.buttonTrue.isEnabled = true
         binding.buttonFalse.isEnabled = true
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG,"Destroy")
+        super.onDestroy()
     }
 }
