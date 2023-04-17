@@ -1,5 +1,6 @@
 package com.estudos.geoquiz
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
@@ -7,7 +8,9 @@ import kotlin.random.Random
 const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
 const val USED_INDEX_KEY = "USED_INDEX_KEY"
 const val HITS_KEY = "HITS_KEY"
-//private const val TAG = "QuizViewModel"
+const val USED_KEY = "USED_KEY"
+private const val TAG = "QuizViewModel"
+
 class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private val questionBank = listOf(
@@ -19,19 +22,21 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         Questions(R.string.question_asia, true)
     )
 
-    var currentIndex
-        get() = savedStateHandle.get(CURRENT_INDEX_KEY) ?: 0
+    private var currentIndex = 0
+        get() = savedStateHandle[CURRENT_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
 
-    private var usedIndex
-        get() = savedStateHandle.get(USED_INDEX_KEY) ?: 0
+
+    private var usedIndex = 0
+        get() = savedStateHandle[USED_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
 
-    private var hits
-        get() = savedStateHandle.get(HITS_KEY) ?: 0
+    private var hits = 0
+        get() = savedStateHandle[HITS_KEY] ?: field
         set(value) = savedStateHandle.set(HITS_KEY, value)
 
-    private var used = mutableListOf<Int>()
+    private val used: MutableList<Int> = mutableListOf()
+        get() = savedStateHandle[USED_KEY] ?: field
 
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
@@ -56,7 +61,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     }
 
     fun previous(): Boolean {
-        return if (usedIndex > 0){
+        return if (usedIndex > 0) {
             usedIndex--
             setCurrentIndex()
             true
@@ -66,7 +71,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     }
 
     fun buildQuestionList() {
-        if (used.isEmpty()) {
+        if (used.isEmpty()||(used.size == 1)) {
             resetGame()
             while (used.size < questionBank.size) {
                 val numTemp = Random.nextInt(0, (questionBank.size))
@@ -74,6 +79,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
                     used.add(numTemp)
                 }
             }
+            savedStateHandle[USED_KEY] = used
             setCurrentIndex()
         }
     }
