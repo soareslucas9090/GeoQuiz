@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val quizViewModel: QuizViewModel by viewModels()
+    private val quizViewModel: GeoQuizViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buildQuestionList()
 
         //Implementação com função OnClick
+        binding.textQuestion.setOnClickListener(this)
         binding.buttonTrue.setOnClickListener(this)
         binding.buttonFalse.setOnClickListener(this)
         binding.buttonNext.setOnClickListener(this)

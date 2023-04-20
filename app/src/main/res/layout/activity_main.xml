@@ -21,13 +21,13 @@
             android:id="@+id/text_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_australia"
+            android:text=""
             android:layout_marginBottom="70dp"
             app:layout_constraintBottom_toTopOf="@id/button_Reset"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toTopOf="@id/constraintLayoutBox"
-            tools:text="@string/question_australia" />
+            tools:text="" />
 
         <Button
             android:id="@+id/button_True"

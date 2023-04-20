@@ -1,6 +1,5 @@
 package com.estudos.geoquiz
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
@@ -9,11 +8,10 @@ const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
 const val USED_INDEX_KEY = "USED_INDEX_KEY"
 const val HITS_KEY = "HITS_KEY"
 const val USED_KEY = "USED_KEY"
-private const val TAG = "QuizViewModel"
 
-class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private val questionBank = listOf(
+    val questionBank = listOf(
         Questions(R.string.question_australia, true),
         Questions(R.string.question_oceans, true),
         Questions(R.string.question_mideast, false),
@@ -22,12 +20,12 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         Questions(R.string.question_asia, true)
     )
 
-    private var currentIndex = 0
+    var currentIndex = 0
         get() = savedStateHandle[CURRENT_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
 
 
-    private var usedIndex = 0
+    var usedIndex = 0
         get() = savedStateHandle[USED_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
 
@@ -45,7 +43,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
-
+    fun moveToNext() = currentIndex++
     private fun setCurrentIndex() {
         currentIndex = used[usedIndex]
     }
