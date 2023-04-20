@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toTopOf="@id/constraintLayoutBox"
-            tools:text="" />
+            tools:text="@string/question_australia" />
 
         <Button
             android:id="@+id/button_True"
@@ -89,10 +89,22 @@
             android:text="@string/buttonReset"
             android:textColor="#FFFFFF"
             app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutBox"
+            app:layout_constraintBottom_toTopOf="@id/button_cheat"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/text_question" />
+
+        <Button
+            android:id="@+id/button_Cheat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cheat_button"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutBox"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
+            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
+            app:layout_constraintTop_toBottomOf="@id/button_Reset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

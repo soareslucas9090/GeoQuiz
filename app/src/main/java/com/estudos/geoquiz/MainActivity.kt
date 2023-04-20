@@ -1,5 +1,6 @@
 package com.estudos.geoquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonNext.setOnClickListener(this)
         binding.buttonPrev.setOnClickListener(this)
         binding.buttonReset.setOnClickListener(this)
+        binding.buttonCheat.setOnClickListener(this)
 
         //Implementação com Lambda
         /*
@@ -115,6 +117,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         if (v.id == R.id.button_Reset) {
             resetGame(v)
+        }
+
+        if (v.id == R.id.button_Cheat) {
+            val intent = Intent(this, CheatActivity::class.java)
+            startActivity(intent)
         }
 
     }
