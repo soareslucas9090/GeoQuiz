@@ -25,7 +25,7 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
 
 
-    var usedIndex = 0
+    private var usedIndex = 0
         get() = savedStateHandle[USED_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
 
@@ -43,7 +43,6 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
-    fun moveToNext() = currentIndex++
     private fun setCurrentIndex() {
         currentIndex = used[usedIndex]
     }
