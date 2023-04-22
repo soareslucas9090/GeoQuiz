@@ -89,7 +89,7 @@
             android:text="@string/buttonReset"
             android:textColor="#FFFFFF"
             app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@id/button_cheat"
+            app:layout_constraintBottom_toTopOf="@id/button_Cheat"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/text_question" />
