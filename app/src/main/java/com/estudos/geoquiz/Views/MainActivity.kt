@@ -1,17 +1,18 @@
-package com.estudos.geoquiz
+package com.estudos.geoquiz.Views
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.estudos.geoquiz.ViewModels.GeoQuizViewModel
+import com.estudos.geoquiz.R
 import com.estudos.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
@@ -23,13 +24,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ActivityResultContracts.StartActivityForResult()
     ) {
         result ->
+        if (result.resultCode == RESULT_OK) {
+            quizViewModel.isCheater = result.data!!.getBooleanExtra(EXTRA_ANSWER_SHOWN, false)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
 
-        Log.d(TAG,"Create")
+        Log.d(TAG, "Create")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -102,7 +106,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             if (quizViewModel.currentQuestionAnswer == answer) {
                 quizViewModel.oneMoreHit()
-                Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
+                if (quizViewModel.isCheater) {
+                    Snackbar.make(v, R.string.judgment_toast, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
+                }
                 update()
             } else {
                 Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
@@ -178,7 +186,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onDestroy() {
-        Log.d(TAG,"Destroy")
+        Log.d(TAG, "Destroy")
         super.onDestroy()
     }
 }

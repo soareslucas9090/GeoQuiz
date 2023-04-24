@@ -12,10 +12,10 @@
         android:theme="@style/Theme.GeoQuiz"
         tools:targetApi="31">
         <activity
-            android:name=".CheatActivity"
+            android:name=".Views.CheatActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

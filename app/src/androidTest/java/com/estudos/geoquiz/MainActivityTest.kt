@@ -9,6 +9,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.estudos.geoquiz.ViewModels.GeoQuizViewModel
+import com.estudos.geoquiz.Views.MainActivity
 import org.junit.Assert.*
 
 import org.junit.After
