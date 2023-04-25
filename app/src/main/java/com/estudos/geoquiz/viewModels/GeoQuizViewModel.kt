@@ -102,6 +102,5 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         hits = 0
         isCheater = false
         nCheatTokens = nTotalTokens
-        buildQuestionList()
     }
 }

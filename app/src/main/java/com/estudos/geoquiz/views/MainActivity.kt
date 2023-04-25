@@ -203,6 +203,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun resetGame(v: View) {
         quizViewModel.resetGame()
+        buildQuestionList()
+        countTokens()
         Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
         binding.buttonPrev.isEnabled = true
         binding.buttonNext.isEnabled = true
