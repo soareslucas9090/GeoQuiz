@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.Views
+package com.estudos.geoquiz.views
 
 import android.app.Activity
 import android.content.Context
@@ -10,7 +10,7 @@ import android.view.View.OnClickListener
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import com.estudos.geoquiz.R
-import com.estudos.geoquiz.ViewModels.CheatViewModel
+import com.estudos.geoquiz.viewModels.CheatViewModel
 import com.estudos.geoquiz.databinding.ActivityCheatBinding
 
 private const val EXTRA_ANSWER_IS_TRUE = "com.estudos.geoquiz.answer_is_true"

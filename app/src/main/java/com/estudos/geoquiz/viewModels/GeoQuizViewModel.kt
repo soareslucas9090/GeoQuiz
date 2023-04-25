@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.ViewModels
+package com.estudos.geoquiz.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -11,6 +11,7 @@ const val USED_INDEX_KEY = "USED_INDEX_KEY"
 const val HITS_KEY = "HITS_KEY"
 const val USED_KEY = "USED_KEY"
 const val IS_CHEATER_KEY = "IS_CHEATER_KEY"
+const val NUM_CHEAT_TOKEN = "NUM_CHEAT_TOKEN"
 
 class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
@@ -42,6 +43,12 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
     var isCheater: Boolean
         get() = savedStateHandle[IS_CHEATER_KEY] ?: false
         set(value) = savedStateHandle.set(IS_CHEATER_KEY, value)
+
+    var nCheatTokens: Int
+        get() = savedStateHandle[NUM_CHEAT_TOKEN] ?: nTotalTokens
+        set(value) = savedStateHandle.set(NUM_CHEAT_TOKEN, value)
+
+    val nTotalTokens = 3
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
     val currentQuestionText: Int get() = questionBank[currentIndex].textResId
@@ -94,5 +101,7 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         used.clear()
         hits = 0
         isCheater = false
+        nCheatTokens = nTotalTokens
+        buildQuestionList()
     }
 }

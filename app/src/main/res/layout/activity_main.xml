@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    tools:context=".Views.MainActivity">
+    tools:context=".views.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutBox"
@@ -101,10 +101,22 @@
             android:layout_marginTop="10dp"
             android:text="@string/cheat_button"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutBox"
+            app:layout_constraintBottom_toTopOf="@id/text_tokens"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_Reset" />
+
+        <TextView
+            android:id="@+id/text_tokens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutBox"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
+            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
+            app:layout_constraintTop_toBottomOf="@id/button_Cheat"
+            tools:text="@string/countTokens" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

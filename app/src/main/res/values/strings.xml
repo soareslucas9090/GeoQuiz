@@ -9,6 +9,8 @@
     <string name="msgWrong">Wrong!</string>
     <string name="msgNotPrev">Not allowed!</string>
     <string name="msgReset">Reset!</string>
+    <string name="countTokens">You have %d of %d tokens of cheat!</string>
+    <string name="cantCheat">You don\'t have no more tokens of cheat!</string>
 
     <string name="incorrect_toast">Incorrect!</string>
     <string name="answer">Answer</string>

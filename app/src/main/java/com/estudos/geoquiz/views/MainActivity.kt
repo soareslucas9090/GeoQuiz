@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.Views
+package com.estudos.geoquiz.views
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.estudos.geoquiz.ViewModels.GeoQuizViewModel
+import com.estudos.geoquiz.viewModels.GeoQuizViewModel
 import com.estudos.geoquiz.R
 import com.estudos.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         result ->
         if (result.resultCode == RESULT_OK) {
             quizViewModel.isCheater = result.data!!.getBooleanExtra(EXTRA_ANSWER_SHOWN, false)
+            quizViewModel.nCheatTokens--
+            countTokens()
         }
     }
 
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         buildQuestionList()
+        countTokens()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) blurCheatButton()
 
@@ -145,9 +148,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         if (v.id == R.id.button_Cheat) {
-            val answerIsTrue = quizViewModel.currentQuestionAnswer
-            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
-            cheatLauncher.launch(intent)
+            if (quizViewModel.nCheatTokens > 0) {
+                val answerIsTrue = quizViewModel.currentQuestionAnswer
+                val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
+                cheatLauncher.launch(intent)
+            } else {
+                Snackbar.make(v, R.string.cantCheat, Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -196,12 +203,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun resetGame(v: View) {
         quizViewModel.resetGame()
-        buildQuestionList()
         Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
         binding.buttonPrev.isEnabled = true
         binding.buttonNext.isEnabled = true
         binding.buttonTrue.isEnabled = true
         binding.buttonFalse.isEnabled = true
+    }
+
+    private fun countTokens() {
+        val tokenText = getString(
+            R.string.countTokens,
+            quizViewModel.nCheatTokens,
+            quizViewModel.nTotalTokens
+        )
+        binding.textTokens.text = tokenText
     }
 
     override fun onDestroy() {

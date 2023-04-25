@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.ViewModels
+package com.estudos.geoquiz.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
