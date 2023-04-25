@@ -149,7 +149,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
             cheatLauncher.launch(intent)
         }
-
     }
 
     private fun update() {
