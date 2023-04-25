@@ -6,6 +6,7 @@ import com.estudos.geoquiz.Questions
 import com.estudos.geoquiz.R
 import kotlin.random.Random
 
+/** *Listagem de keys para uso do savedState*/
 const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
 const val USED_INDEX_KEY = "USED_INDEX_KEY"
 const val HITS_KEY = "HITS_KEY"
@@ -13,6 +14,10 @@ const val USED_KEY = "USED_KEY"
 const val IS_CHEATER_KEY = "IS_CHEATER_KEY"
 const val NUM_CHEAT_TOKEN = "NUM_CHEAT_TOKEN"
 
+/** *Implementação de um dicionário savedStateHandle para salvar os dados do jogo
+ * o funcionamento principal consiste em gerar uma lista (used) com a ordem das questões geradas aleatoriamente
+ * esta ordem servem como indice para buscar a determinada questão dentro de questionBank e sua resposta
+ * */
 class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
@@ -24,11 +29,12 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         Questions(R.string.question_asia, true)
     )
 
+    /** *currentIndex indica o index que é usado para iterar em questionBank */
     var currentIndex = 0
         get() = savedStateHandle[CURRENT_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
 
-
+    /** *usedIndex indica o index que é usado para iterar dentro de used */
     private var usedIndex = 0
         get() = savedStateHandle[USED_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
@@ -40,8 +46,8 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
     private val used: MutableList<Int> = mutableListOf()
         get() = savedStateHandle[USED_KEY] ?: field
 
-    var isCheater: Boolean
-        get() = savedStateHandle[IS_CHEATER_KEY] ?: false
+    var isCheater: Boolean = false
+        get() = savedStateHandle[IS_CHEATER_KEY] ?: field
         set(value) = savedStateHandle.set(IS_CHEATER_KEY, value)
 
     var nCheatTokens: Int
@@ -56,10 +62,14 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
+
+
     private fun setCurrentIndex() {
         currentIndex = used[usedIndex]
     }
 
+    /** *o isCheater = false é para a contagem se o usuário usou cheat naquela pergunta específica
+     * Só faz o update se ainda houver questões não mostradas*/
     fun update(): Boolean {
         return if (usedIndex < (questionBank.size - 1)) {
             usedIndex++
@@ -71,6 +81,7 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         }
     }
 
+    /** * Só faz o previous se houver questões anteriores*/
     fun previous(): Boolean {
         return if (usedIndex > 0) {
             usedIndex--
@@ -81,6 +92,9 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         }
     }
 
+    /** * é utilizada a biblioteca random para gerar questionBank.size numeros, que não podem
+     * se repetir, que significaram cada index de questionBank
+     * Depois disso é feito o salvamento de used em savedStateHandle*/
     fun buildQuestionList() {
         if (used.isEmpty()||(used.size == 1)) {
             resetGame()

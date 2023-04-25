@@ -4,9 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.estudos.geoquiz.R
 
+/** *Listagem de keys para uso do savedState*/
 const val IS_CHEATING_KEY = "IS_CHEATING_KEY"
 const val CURRENT_TEXT_CHEAT_KEY = "CURRENT_TEXT_CHEAT_KEY"
 
+/** *Não possui lógica interna, apenas guarda e retorna os valores para CheatActivity
+ * Com currentTextCheat em específico, caso o usuário ainda não tenha cheatado,
+ * o retorno será R.string.warning_text*/
 class CheatViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     var isCheating: Boolean

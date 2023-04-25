@@ -13,10 +13,11 @@ import com.estudos.geoquiz.R
 import com.estudos.geoquiz.viewModels.CheatViewModel
 import com.estudos.geoquiz.databinding.ActivityCheatBinding
 
+/** *Constantes usadas para transitar valores por meio das intents */
 private const val EXTRA_ANSWER_IS_TRUE = "com.estudos.geoquiz.answer_is_true"
 const val EXTRA_ANSWER_SHOWN = "com.estudos.geoquiz.answer_shown"
 
-
+/** *Implementação com OnClickListener novamente, como na Main Activity */
 class CheatActivity : AppCompatActivity(), OnClickListener {
 
     lateinit var binding: ActivityCheatBinding
@@ -36,11 +37,15 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
 
         binding.buttonShowAnswer.setOnClickListener(this)
 
+        /** *Caso o viewModel acuse cheat, é chamado direto a função setAnswerShownResult
+         * Serve para recuperar valores em caso de onDestroy da activity*/
         if (cheatViewModel.isCheating)
             setAnswerShownResult(cheatViewModel.currentTextCheat)
 
     }
 
+    /** *Objeto de classe para guardar a função de criação de uma nova intent com um putExtra
+     * No caso, EXTRA_ANSWER_IS_TRUE, e o valor de answerIsTrue passado*/
     companion object {
         fun newIntent(packageContext: Context, answerIsTrue: Boolean): Intent {
             return Intent(packageContext, CheatActivity::class.java).apply {
@@ -50,6 +55,7 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
     }
 
     override fun onClick(v: View) {
+    /** *Sempre que o usuário ver uma resposta, é atualizado este dado na viewModel e chamado a função setAnswerShownResult*/
         if (v.id == R.id.button_showAnswer) {
             cheatViewModel.currentTextCheat = when {
                 answerIsTrue -> R.string.buttonTrue
@@ -60,6 +66,9 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    /** *Função usada para retornar o resultado do cheat de usuário
+     * Sempre que for chamado, retornará um Extra true, pois a condição em MainActivity analisa se o resultado
+     * é Activity.RESULT_OK. O retorno automático, caso esta função não seja chamada, é Activity.RESULT_CANCELED*/
     private fun setAnswerShownResult(@StringRes answerText: Int){
         binding.textCheat.setText(answerText)
         val intentShowResult = Intent().apply {
