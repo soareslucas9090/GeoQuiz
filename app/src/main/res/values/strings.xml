@@ -15,7 +15,8 @@
     <string name="warning_text">Are you sure you want to do this?</string>
     <string name="show_answer_button">Show Answer</string>
     <string name="cheat_button">Cheat!</string>
-    <string name="judgment_toast">Cheating is wrong.</string>
+    <string name="judgment_toast_ok">Cheating is wrong.</string>
+    <string name="judgment_toast_wrong">Even cheating, you made a mistake.</string>
 
     <string name="msgCongratulations">Congratulations, you got %d out of %d!</string>
     <string name="question_australia">Canberra is the capital of Australia.</string>

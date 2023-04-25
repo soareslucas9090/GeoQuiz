@@ -43,7 +43,6 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         get() = savedStateHandle[IS_CHEATER_KEY] ?: false
         set(value) = savedStateHandle.set(IS_CHEATER_KEY, value)
 
-
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
     val currentQuestionText: Int get() = questionBank[currentIndex].textResId
     val sizeQuestionBank: Int get() = questionBank.size
@@ -58,6 +57,7 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         return if (usedIndex < (questionBank.size - 1)) {
             usedIndex++
             setCurrentIndex()
+            isCheater = false
             true
         } else {
             false

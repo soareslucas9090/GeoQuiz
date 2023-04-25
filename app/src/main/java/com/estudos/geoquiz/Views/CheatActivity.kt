@@ -67,5 +67,4 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
         }
         setResult(Activity.RESULT_OK, intentShowResult)
     }
-
 }

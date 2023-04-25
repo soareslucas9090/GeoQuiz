@@ -1,10 +1,14 @@
 package com.estudos.geoquiz.Views
 
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.estudos.geoquiz.ViewModels.GeoQuizViewModel
 import com.estudos.geoquiz.R
@@ -39,6 +43,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         buildQuestionList()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) blurCheatButton()
 
         //Implementação com função OnClick
         binding.textQuestion.setOnClickListener(this)
@@ -107,13 +113,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (quizViewModel.currentQuestionAnswer == answer) {
                 quizViewModel.oneMoreHit()
                 if (quizViewModel.isCheater) {
-                    Snackbar.make(v, R.string.judgment_toast, Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v, R.string.judgment_toast_ok, Snackbar.LENGTH_SHORT).show()
                 } else {
                     Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
                 }
                 update()
             } else {
-                Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
+                if (quizViewModel.isCheater) {
+                    Snackbar.make(v, R.string.judgment_toast_wrong, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(v, R.string.msgWrong, Snackbar.LENGTH_LONG).show()
+                }
                 update()
             }
         }
@@ -147,6 +157,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.textQuestion.setText(quizViewModel.currentQuestionText)
         } else
             finishGame()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun blurCheatButton() {
+        val effect = RenderEffect.createBlurEffect(
+            5.0f,
+            5.0f,
+            Shader.TileMode.CLAMP
+        )
+        binding.buttonCheat.setRenderEffect(effect)
     }
 
     private fun previous(v: View) {
