@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.estudos.geoquiz.viewModels.GeoQuizViewModel
 import com.estudos.geoquiz.R
 import com.estudos.geoquiz.databinding.ActivityMainBinding
+import com.estudos.geoquiz.infrastructure.Constants
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (result.resultCode == RESULT_OK) {
             /** *result.data nunca será Null, pois esta linha só é executada com Result_Ok, que em
              * CheatActivity, sempre retorna um boolean (true) */
-            quizViewModel.isCheater = result.data!!.getBooleanExtra(EXTRA_ANSWER_SHOWN, false)
+            quizViewModel.isCheater = result.data!!.getBooleanExtra(Constants.STATEINTENT.EXTRA_ANSWER_SHOWN, false)
             quizViewModel.nCheatTokens--
             countTokens()
         }
@@ -263,6 +264,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonNext.isEnabled = true
         binding.buttonTrue.isEnabled = true
         binding.buttonFalse.isEnabled = true
+        binding.buttonCheat.isEnabled = true
     }
 
     private fun countTokens() {

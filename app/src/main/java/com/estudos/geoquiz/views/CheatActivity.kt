@@ -12,10 +12,7 @@ import androidx.annotation.StringRes
 import com.estudos.geoquiz.R
 import com.estudos.geoquiz.viewModels.CheatViewModel
 import com.estudos.geoquiz.databinding.ActivityCheatBinding
-
-/** *Constantes usadas para transitar valores por meio das intents */
-private const val EXTRA_ANSWER_IS_TRUE = "com.estudos.geoquiz.answer_is_true"
-const val EXTRA_ANSWER_SHOWN = "com.estudos.geoquiz.answer_shown"
+import com.estudos.geoquiz.infrastructure.Constants
 
 /** *Implementação com OnClickListener novamente, como na Main Activity */
 class CheatActivity : AppCompatActivity(), OnClickListener {
@@ -33,7 +30,7 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
 
         //é usando intent. e não Intent, pois com o "i" minusculo, se refere a uma instância específica
         //e com "I" é um método estático.
-        answerIsTrue = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false)
+        answerIsTrue = intent.getBooleanExtra(Constants.STATEINTENT.EXTRA_ANSWER_IS_TRUE, false)
 
         binding.buttonShowAnswer.setOnClickListener(this)
 
@@ -49,7 +46,7 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
     companion object {
         fun newIntent(packageContext: Context, answerIsTrue: Boolean): Intent {
             return Intent(packageContext, CheatActivity::class.java).apply {
-                putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue)
+                putExtra(Constants.STATEINTENT.EXTRA_ANSWER_IS_TRUE, answerIsTrue)
             }
         }
     }
@@ -72,7 +69,7 @@ class CheatActivity : AppCompatActivity(), OnClickListener {
     private fun setAnswerShownResult(@StringRes answerText: Int){
         binding.textCheat.setText(answerText)
         val intentShowResult = Intent().apply {
-            putExtra(EXTRA_ANSWER_SHOWN, true)
+            putExtra(Constants.STATEINTENT.EXTRA_ANSWER_SHOWN, true)
         }
         setResult(Activity.RESULT_OK, intentShowResult)
     }

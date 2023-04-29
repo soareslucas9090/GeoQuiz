@@ -2,17 +2,9 @@ package com.estudos.geoquiz.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.estudos.geoquiz.Questions
-import com.estudos.geoquiz.R
+import com.estudos.geoquiz.data.Questions
+import com.estudos.geoquiz.infrastructure.Constants
 import kotlin.random.Random
-
-/** *Listagem de keys para uso do savedState*/
-const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
-const val USED_INDEX_KEY = "USED_INDEX_KEY"
-const val HITS_KEY = "HITS_KEY"
-const val USED_KEY = "USED_KEY"
-const val IS_CHEATER_KEY = "IS_CHEATER_KEY"
-const val NUM_CHEAT_TOKEN = "NUM_CHEAT_TOKEN"
 
 /** *Implementação de um dicionário savedStateHandle para salvar os dados do jogo
  * o funcionamento principal consiste em gerar uma lista (used) com a ordem das questões geradas aleatoriamente
@@ -21,43 +13,50 @@ const val NUM_CHEAT_TOKEN = "NUM_CHEAT_TOKEN"
 class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
-        Questions(R.string.question_australia, true),
-        Questions(R.string.question_oceans, true),
-        Questions(R.string.question_mideast, false),
-        Questions(R.string.question_africa, false),
-        Questions(R.string.question_americas, true),
-        Questions(R.string.question_asia, true)
+        Questions.questions.geoQuestions,
+        Questions.questions.tecQuestions,
+        Questions.questions.sciQuestions,
+        Questions.questions.hisQuestions,
+        Questions.questions.artQuestions,
+        Questions.questions.spoQuestions
     )
 
     /** *currentIndex indica o index que é usado para iterar em questionBank */
     var currentIndex = 0
-        get() = savedStateHandle[CURRENT_INDEX_KEY] ?: field
-        set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
+        get() = savedStateHandle[Constants.KEY.CURRENT_INDEX_KEY] ?: field
+        set(value) = savedStateHandle.set(Constants.KEY.CURRENT_INDEX_KEY, value)
+
+    var currentTypeIndex = 0
+        get() = savedStateHandle[Constants.KEY.CURRENT_TYPE_INDEX_KEY] ?: field
+        set(value) = savedStateHandle.set(Constants.KEY.CURRENT_TYPE_INDEX_KEY, value)
 
     /** *usedIndex indica o index que é usado para iterar dentro de used */
     private var usedIndex = 0
-        get() = savedStateHandle[USED_INDEX_KEY] ?: field
-        set(value) = savedStateHandle.set(USED_INDEX_KEY, value)
+        get() = savedStateHandle[Constants.KEY.USED_INDEX_KEY] ?: field
+        set(value) = savedStateHandle.set(Constants.KEY.USED_INDEX_KEY, value)
 
     private var hits = 0
-        get() = savedStateHandle[HITS_KEY] ?: field
-        set(value) = savedStateHandle.set(HITS_KEY, value)
+        get() = savedStateHandle[Constants.KEY.HITS_KEY] ?: field
+        set(value) = savedStateHandle.set(Constants.KEY.HITS_KEY, value)
 
-    private val used: MutableList<Int> = mutableListOf()
-        get() = savedStateHandle[USED_KEY] ?: field
+    private val usedQuestions: MutableList<Int> = mutableListOf()
+        get() = savedStateHandle[Constants.KEY.USED_QUESTION_KEY] ?: field
+
+    private val usedTypeQuestions: MutableList<Int> = mutableListOf()
+        get() = savedStateHandle[Constants.KEY.USED_TYPE_QUESTION_KEY] ?: field
 
     var isCheater: Boolean = false
-        get() = savedStateHandle[IS_CHEATER_KEY] ?: field
-        set(value) = savedStateHandle.set(IS_CHEATER_KEY, value)
+        get() = savedStateHandle[Constants.KEY.IS_CHEATER_KEY] ?: field
+        set(value) = savedStateHandle.set(Constants.KEY.IS_CHEATER_KEY, value)
 
     var nCheatTokens: Int
-        get() = savedStateHandle[NUM_CHEAT_TOKEN] ?: nTotalTokens
-        set(value) = savedStateHandle.set(NUM_CHEAT_TOKEN, value)
+        get() = savedStateHandle[Constants.STATEINTENT.NUM_CHEAT_TOKEN] ?: nTotalTokens
+        set(value) = savedStateHandle.set(Constants.STATEINTENT.NUM_CHEAT_TOKEN, value)
 
     val nTotalTokens = 3
 
-    val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
-    val currentQuestionText: Int get() = questionBank[currentIndex].textResId
+    val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
+    val currentQuestionText: Int get() = questionBank[currentTypeIndex][currentIndex].textResId
     val sizeQuestionBank: Int get() = questionBank.size
     val currentHits: Int get() = hits
 
@@ -65,7 +64,8 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
 
 
     private fun setCurrentIndex() {
-        currentIndex = used[usedIndex]
+        currentIndex = usedQuestions[usedIndex]
+        currentTypeIndex = usedTypeQuestions[usedIndex]
     }
 
     /** *o isCheater = false é para a contagem se o usuário usou cheat naquela pergunta específica
@@ -96,23 +96,32 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
      * se repetir, que significaram cada index de questionBank
      * Depois disso é feito o salvamento de used em savedStateHandle*/
     fun buildQuestionList() {
-        if (used.isEmpty()||(used.size == 1)) {
+        if (usedTypeQuestions.isEmpty()||(usedTypeQuestions.size == 1)) {
             resetGame()
-            while (used.size < questionBank.size) {
+            while (usedTypeQuestions.size < questionBank.size) {
                 val numTemp = Random.nextInt(0, (questionBank.size))
-                if (!used.contains(numTemp)) {
-                    used.add(numTemp)
+                if (!usedTypeQuestions.contains(numTemp)) {
+                    usedTypeQuestions.add(numTemp)
                 }
             }
-            savedStateHandle[USED_KEY] = used
+            while (usedQuestions.size < questionBank.size) {
+                val numTemp = Random.nextInt(0, (questionBank.size))
+                if (!usedQuestions.contains(numTemp)) {
+                    usedQuestions.add(numTemp)
+                }
+            }
+            savedStateHandle[Constants.KEY.USED_QUESTION_KEY] = usedQuestions
+            savedStateHandle[Constants.KEY.USED_TYPE_QUESTION_KEY] = usedTypeQuestions
             setCurrentIndex()
         }
     }
 
     fun resetGame() {
         currentIndex = 0
+        currentTypeIndex = 0
         usedIndex = 0
-        used.clear()
+        usedQuestions.clear()
+        usedTypeQuestions.clear()
         hits = 0
         isCheater = false
         nCheatTokens = nTotalTokens
