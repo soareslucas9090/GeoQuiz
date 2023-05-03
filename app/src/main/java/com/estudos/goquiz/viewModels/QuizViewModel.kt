@@ -110,7 +110,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
      * se repetir, que significaram cada index de questionBank
      * Depois disso é feito o salvamento de used em savedStateHandle*/
     fun buildQuestionList() {
-        if (usedTypeQuestions.isEmpty() || (usedTypeQuestions.size == 1)) {
+        if (usedTypeQuestions.isEmpty()||(usedTypeQuestions.size == 1)) {
             resetGame()
             while (usedTypeQuestions.size < questionBank.size) {
                 val numTemp = Random.nextInt(0, (questionBank.size))
