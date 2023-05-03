@@ -6,7 +6,10 @@ import com.estudos.goquiz.R
 /** *data class usada somente para armazenar o texto RES da questão, e sua resposta */
 class Questions private constructor(@StringRes val textResId: Int, val answer: Boolean) {
 
-    object questions {
+    object QuestionsBank {
+
+        const val countQuestionPerCategory = 6
+
         val geoQuestions = listOf(
             Questions(R.string.question_geo1, true),
             Questions(R.string.question_geo2, true),

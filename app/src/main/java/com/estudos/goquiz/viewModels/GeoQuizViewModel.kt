@@ -13,12 +13,12 @@ import kotlin.random.Random
 class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
-        Questions.questions.geoQuestions,
-        Questions.questions.tecQuestions,
-        Questions.questions.sciQuestions,
-        Questions.questions.hisQuestions,
-        Questions.questions.artQuestions,
-        Questions.questions.spoQuestions
+        Questions.QuestionsBank.geoQuestions,
+        Questions.QuestionsBank.tecQuestions,
+        Questions.QuestionsBank.sciQuestions,
+        Questions.QuestionsBank.hisQuestions,
+        Questions.QuestionsBank.artQuestions,
+        Questions.QuestionsBank.spoQuestions
     )
 
     /** *currentIndex indica o index que é usado para iterar em questionBank */
@@ -53,6 +53,10 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         get() = savedStateHandle[Constants.STATEINTENT.NUM_CHEAT_TOKEN] ?: nTotalTokens
         set(value) = savedStateHandle.set(Constants.STATEINTENT.NUM_CHEAT_TOKEN, value)
 
+    var difficult: Int
+        get() = savedStateHandle[Constants.KEY.DIFFICULT_KEY] ?: 1
+        set(value) = savedStateHandle.set(Constants.KEY.DIFFICULT_KEY, value)
+
     val nTotalTokens = 3
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
@@ -66,6 +70,17 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
     private fun setCurrentIndex() {
         currentIndex = usedQuestions[usedIndex]
         currentTypeIndex = usedTypeQuestions[usedIndex]
+    }
+
+    private fun difficult(): Int{
+        if(difficult == 1){
+            return 6
+        } else {
+            if(difficult == 2) {
+                return 10
+            }
+            return 14
+        }
     }
 
     /** *o isCheater = false é para a contagem se o usuário usou cheat naquela pergunta específica
@@ -104,8 +119,8 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
                     usedTypeQuestions.add(numTemp)
                 }
             }
-            while (usedQuestions.size < questionBank.size) {
-                val numTemp = Random.nextInt(0, (questionBank.size))
+            while (usedQuestions.size < difficult()) {
+                val numTemp = Random.nextInt(0, (Questions.QuestionsBank.countQuestionPerCategory))
                 if (!usedQuestions.contains(numTemp)) {
                     usedQuestions.add(numTemp)
                 }
