@@ -13,7 +13,7 @@ import kotlin.random.Random
 class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
-        Questions.questions.geoQuestions,
+        Questions.questions.goQuestions,
         Questions.questions.tecQuestions,
         Questions.questions.sciQuestions,
         Questions.questions.hisQuestions,

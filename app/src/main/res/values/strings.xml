@@ -23,12 +23,12 @@
 
     <string name="msgCongratulations">Congratulations, you got %d out of %d!</string>
 
-    <string name="question_geo1">Canberra is the capital of Australia.</string>
-    <string name="question_geo2">The Pacific Ocean is larger than the Atlantic Ocean.</string>
-    <string name="question_geo3">The Suez Canal connects the Red Sea and the Indian Ocean.</string>
-    <string name="question_geo4">The source of the Nile River is in Egypt.</string>
-    <string name="question_geo5">The Amazon River is the longest river in the Americas.</string>
-    <string name="question_geo6">Lake Baikal is the world\'s oldest and deepest freshwater lake.</string>
+    <string name="question_go1">Canberra is the capital of Australia.</string>
+    <string name="question_go2">The Pacific Ocean is larger than the Atlantic Ocean.</string>
+    <string name="question_go3">The Suez Canal connects the Red Sea and the Indian Ocean.</string>
+    <string name="question_go4">The source of the Nile River is in Egypt.</string>
+    <string name="question_go5">The Amazon River is the longest river in the Americas.</string>
+    <string name="question_go6">Lake Baikal is the world\'s oldest and deepest freshwater lake.</string>
 
     <string name="question_tec1">The iPhone was first released in 2007.</string>
     <string name="question_tec2">The first computer virus was created in the 1970s.</string>

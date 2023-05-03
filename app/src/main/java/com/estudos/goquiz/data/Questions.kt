@@ -5,17 +5,18 @@ import com.estudos.goquiz.R
 
 /** *data class usada somente para armazenar o texto RES da questão, e sua resposta */
 class Questions private constructor(@StringRes val textResId: Int, val answer: Boolean) {
+
     object questions {
 
         const val nQuestionsPerCategory = 6
 
-        val geoQuestions = listOf(
-            Questions(R.string.question_geo1, true),
-            Questions(R.string.question_geo2, true),
-            Questions(R.string.question_geo3, false),
-            Questions(R.string.question_geo4, false),
-            Questions(R.string.question_geo5, true),
-            Questions(R.string.question_geo6, true)
+        val goQuestions = listOf(
+            Questions(R.string.question_go1, true),
+            Questions(R.string.question_go2, true),
+            Questions(R.string.question_go3, false),
+            Questions(R.string.question_go4, false),
+            Questions(R.string.question_go5, true),
+            Questions(R.string.question_go6, true)
         )
 
         val tecQuestions = listOf(
@@ -62,7 +63,6 @@ class Questions private constructor(@StringRes val textResId: Int, val answer: B
             Questions(R.string.question_spo5, true),
             Questions(R.string.question_spo6, false)
         )
-
     }
 
 }
