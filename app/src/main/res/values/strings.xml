@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GeoQuiz</string>
+    <string name="app_name">GoQuiz</string>
     <string name="buttonTrue">True</string>
     <string name="buttonFalse">False</string>
     <string name="buttonNext">Next</string>

@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.views
+package com.estudos.goquiz.views
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -10,10 +10,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.estudos.geoquiz.viewModels.GeoQuizViewModel
-import com.estudos.geoquiz.R
-import com.estudos.geoquiz.databinding.ActivityMainBinding
-import com.estudos.geoquiz.infrastructure.Constants
+import com.estudos.goquiz.viewModels.GoQuizViewModel
+import com.estudos.goquiz.R
+import com.estudos.goquiz.databinding.ActivityMainBinding
+import com.estudos.goquiz.infrastructure.Constants
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val quizViewModel: GeoQuizViewModel by viewModels()
+    private val quizViewModel: GoQuizViewModel by viewModels()
 
     /**
      * Cheat launcher - recebe uma Intent com o resultado do contrato com a CheatActivity

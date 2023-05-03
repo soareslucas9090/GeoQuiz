@@ -1,16 +1,16 @@
-package com.estudos.geoquiz.viewModels
+package com.estudos.goquiz.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.estudos.geoquiz.data.Questions
-import com.estudos.geoquiz.infrastructure.Constants
+import com.estudos.goquiz.data.Questions
+import com.estudos.goquiz.infrastructure.Constants
 import kotlin.random.Random
 
 /** *Implementação de um dicionário savedStateHandle para salvar os dados do jogo
  * o funcionamento principal consiste em gerar uma lista (used) com a ordem das questões geradas aleatoriamente
  * esta ordem servem como indice para buscar a determinada questão dentro de questionBank e sua resposta
  * */
-class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
         Questions.questions.geoQuestions,

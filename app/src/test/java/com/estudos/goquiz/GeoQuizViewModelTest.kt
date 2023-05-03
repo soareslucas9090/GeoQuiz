@@ -1,15 +1,15 @@
-package com.estudos.geoquiz
+package com.estudos.goquiz
 
 import androidx.lifecycle.SavedStateHandle
 import org.junit.Assert.*
 import org.junit.Test
 
-class GeoQuizViewModelTest{
+class GoQuizViewModelTest{
 
     @Test
     fun providesExpectedQuestionText(){
         val savedStateHandle = SavedStateHandle(mapOf(CURRENT_INDEX_KEY to 4))
-        val quizViewModel = GeoQuizViewModel(savedStateHandle)
+        val quizViewModel = GoQuizViewModel(savedStateHandle)
 
         assertEquals(R.string.question_americas, quizViewModel.currentQuestionText)
         quizViewModel.moveToNext()

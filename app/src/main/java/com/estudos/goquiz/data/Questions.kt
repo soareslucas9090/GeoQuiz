@@ -1,7 +1,7 @@
-package com.estudos.geoquiz.data
+package com.estudos.goquiz.data
 
 import androidx.annotation.StringRes
-import com.estudos.geoquiz.R
+import com.estudos.goquiz.R
 
 /** *data class usada somente para armazenar o texto RES da questão, e sua resposta */
 class Questions private constructor(@StringRes val textResId: Int, val answer: Boolean) {

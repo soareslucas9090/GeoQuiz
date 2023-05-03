@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.estudos.geoquiz'
+    namespace 'com.estudos.goquiz'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.estudos.geoquiz"
+        applicationId "com.estudos.goquiz"
         minSdk 24
         targetSdk 33
         versionCode 1
