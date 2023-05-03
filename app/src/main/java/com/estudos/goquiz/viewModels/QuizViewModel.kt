@@ -1,16 +1,16 @@
-package com.estudos.geoquiz.viewModels
+package com.estudos.goquiz.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.estudos.geoquiz.data.Questions
-import com.estudos.geoquiz.infrastructure.Constants
+import com.estudos.goquiz.data.Questions
+import com.estudos.goquiz.infrastructure.Constants
 import kotlin.random.Random
 
 /** *Implementação de um dicionário savedStateHandle para salvar os dados do jogo
  * o funcionamento principal consiste em gerar uma lista (used) com a ordem das questões geradas aleatoriamente
  * esta ordem servem como indice para buscar a determinada questão dentro de questionBank e sua resposta
  * */
-class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val questionBank = listOf(
         Questions.questions.geoQuestions,
@@ -53,6 +53,10 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
         get() = savedStateHandle[Constants.STATEINTENT.NUM_CHEAT_TOKEN] ?: nTotalTokens
         set(value) = savedStateHandle.set(Constants.STATEINTENT.NUM_CHEAT_TOKEN, value)
 
+    private var difficult: Int
+        get() = savedStateHandle[Constants.KEY.DIFFICULT_KEY] ?: 3
+        set(value) = savedStateHandle.set(Constants.KEY.DIFFICULT_KEY, value)
+
     val nTotalTokens = 3
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
@@ -62,6 +66,16 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
 
     fun oneMoreHit() = hits++
 
+    fun difficult(): Int {
+        return if (difficult == 1) {
+            6
+        } else {
+            if (difficult == 2) {
+                8
+            } else
+                10
+        }
+    }
 
     private fun setCurrentIndex() {
         currentIndex = usedQuestions[usedIndex]
@@ -104,8 +118,8 @@ class GeoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
                     usedTypeQuestions.add(numTemp)
                 }
             }
-            while (usedQuestions.size < questionBank.size) {
-                val numTemp = Random.nextInt(0, (questionBank.size))
+            while (usedQuestions.size < difficult()) {
+                val numTemp = Random.nextInt(0, (Questions.questions.nQuestionsPerCategory))
                 if (!usedQuestions.contains(numTemp)) {
                     usedQuestions.add(numTemp)
                 }

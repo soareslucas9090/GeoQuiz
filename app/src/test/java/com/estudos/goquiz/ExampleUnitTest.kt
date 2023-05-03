@@ -1,4 +1,4 @@
-package com.estudos.geoquiz
+package com.estudos.goquiz
 
 import org.junit.Test
 

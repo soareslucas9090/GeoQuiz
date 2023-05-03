@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.views
+package com.estudos.goquiz.views
 
 import android.app.Activity
 import android.content.Context
@@ -9,10 +9,10 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import com.estudos.geoquiz.R
-import com.estudos.geoquiz.viewModels.CheatViewModel
-import com.estudos.geoquiz.databinding.ActivityCheatBinding
-import com.estudos.geoquiz.infrastructure.Constants
+import com.estudos.goquiz.R
+import com.estudos.goquiz.viewModels.CheatViewModel
+import com.estudos.goquiz.databinding.ActivityCheatBinding
+import com.estudos.goquiz.infrastructure.Constants
 
 /** *Implementação com OnClickListener novamente, como na Main Activity */
 class CheatActivity : AppCompatActivity(), OnClickListener {

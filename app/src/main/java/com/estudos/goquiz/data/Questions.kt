@@ -1,12 +1,14 @@
-package com.estudos.geoquiz.data
+package com.estudos.goquiz.data
 
 import androidx.annotation.StringRes
-import com.estudos.geoquiz.R
+import com.estudos.goquiz.R
 
 /** *data class usada somente para armazenar o texto RES da questão, e sua resposta */
 class Questions private constructor(@StringRes val textResId: Int, val answer: Boolean) {
-
     object questions {
+
+        const val nQuestionsPerCategory = 6
+
         val geoQuestions = listOf(
             Questions(R.string.question_geo1, true),
             Questions(R.string.question_geo2, true),
@@ -60,6 +62,7 @@ class Questions private constructor(@StringRes val textResId: Int, val answer: B
             Questions(R.string.question_spo5, true),
             Questions(R.string.question_spo6, false)
         )
+
     }
 
 }

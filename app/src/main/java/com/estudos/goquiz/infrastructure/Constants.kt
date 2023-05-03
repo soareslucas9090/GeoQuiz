@@ -1,4 +1,4 @@
-package com.estudos.geoquiz.infrastructure
+package com.estudos.goquiz.infrastructure
 
 /** *Classe estática usada apenas para guardar valores de constantes*/
 class Constants private constructor() {
@@ -14,13 +14,14 @@ class Constants private constructor() {
         const val IS_CHEATER_KEY = "IS_CHEATER_KEY"
         const val IS_CHEATING_KEY = "IS_CHEATING_KEY"
         const val CURRENT_TEXT_CHEAT_KEY = "CURRENT_TEXT_CHEAT_KEY"
+        const val DIFFICULT_KEY = "DIFFICULT_KEY"
     }
 
     object STATEINTENT {
         /** *Constantes usadas para transitar valores por meio das intents */
         const val NUM_CHEAT_TOKEN = "NUM_CHEAT_TOKEN"
-        const val EXTRA_ANSWER_IS_TRUE = "com.estudos.geoquiz.answer_is_true"
-        const val EXTRA_ANSWER_SHOWN = "com.estudos.geoquiz.answer_shown"
+        const val EXTRA_ANSWER_IS_TRUE = "com.estudos.goquiz.answer_is_true"
+        const val EXTRA_ANSWER_SHOWN = "com.estudos.goquiz.answer_shown"
     }
 
 }

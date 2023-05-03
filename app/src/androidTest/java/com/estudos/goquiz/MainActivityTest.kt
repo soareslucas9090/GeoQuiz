@@ -1,4 +1,4 @@
-package com.estudos.geoquiz
+package com.estudos.goquiz
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
@@ -9,8 +9,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.estudos.geoquiz.viewModels.GeoQuizViewModel
-import com.estudos.geoquiz.views.MainActivity
+import com.estudos.goquiz.viewModels.QuizViewModel
+import com.estudos.goquiz.views.MainActivity
 import org.junit.Assert.*
 
 import org.junit.After
@@ -23,7 +23,7 @@ class MainActivityTest {
 
     private lateinit var scenario: ActivityScenario<MainActivity>
     private val savedStateHandle = SavedStateHandle()
-    private val quizViewModel = GeoQuizViewModel(savedStateHandle)
+    private val quizViewModel = QuizViewModel(savedStateHandle)
 
     @Before
     fun setUp() {
@@ -37,9 +37,9 @@ class MainActivityTest {
 
     @Test
     fun showsFirstQuestion() {
-        var viewModel: GeoQuizViewModel? = null
+        var viewModel: QuizViewModel? = null
         scenario.onActivity {
-            viewModel = ViewModelProvider(it)[GeoQuizViewModel::class.java]
+            viewModel = ViewModelProvider(it)[QuizViewModel::class.java]
         }
         onView(withId(R.id.text_question))
             .check(matches(withText(viewModel?.currentQuestionText!!)))
@@ -47,9 +47,9 @@ class MainActivityTest {
 
     @Test
     fun showsSecondQuestionAfterNextPress() {
-        var viewModel: GeoQuizViewModel? = null
+        var viewModel: QuizViewModel? = null
         scenario.onActivity {
-            viewModel = ViewModelProvider(it)[GeoQuizViewModel::class.java]
+            viewModel = ViewModelProvider(it)[QuizViewModel::class.java]
         }
 
         onView(withId(R.id.button_Next)).perform(click())
