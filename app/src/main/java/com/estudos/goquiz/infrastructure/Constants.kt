@@ -24,4 +24,8 @@ class Constants private constructor() {
         const val EXTRA_ANSWER_SHOWN = "com.estudos.goquiz.answer_shown"
     }
 
+    object TAG {
+        /** *Constantes usadas TAGS de Log de depuração */
+        const val GEO_QUIZ_VIEW_MODEL_TAG = "GoQuizViewModel"
+    }
 }

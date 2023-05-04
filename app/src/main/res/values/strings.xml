@@ -5,10 +5,12 @@
     <string name="buttonNext">Next</string>
     <string name="buttonPrev">Prev</string>
     <string name="buttonReset">Reset</string>
+    <string name="buttonChangeDifficult">Change Difficult</string>
     <string name="msgCorrect">Correct!</string>
     <string name="msgWrong">Wrong!</string>
     <string name="msgNotPrev">Not allowed!</string>
     <string name="msgReset">Reset!</string>
+    <string name="trueOrFalse">True or False?</string>
     <string name="countTokens">You have %d of %d tokens of cheat!</string>
     <string name="cantCheat">You don\'t have no more tokens of cheat!</string>
 

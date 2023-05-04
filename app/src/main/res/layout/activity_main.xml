@@ -8,7 +8,37 @@
     android:layout_margin="20dp"
     tools:context=".views.MainActivity">
 
+    <TextView
+        android:id="@+id/text_true_or_false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/amaranth"
+        android:gravity="center"
+        android:text="@string/trueOrFalse"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/constraintLayoutMain"
+        app:layout_constraintStart_toStartOf="@id/constraintLayoutMain"
+        app:layout_constraintTop_toTopOf="@id/constraintLayoutMain" />
+
+    <TextView
+        android:id="@+id/text_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/amaranth"
+        android:gravity="center"
+        android:text=""
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutBox"
+        app:layout_constraintEnd_toEndOf="@id/constraintLayoutMain"
+        app:layout_constraintStart_toStartOf="@id/constraintLayoutMain"
+        app:layout_constraintTop_toBottomOf="@id/text_true_or_false"
+        tools:text="@string/question_geo1" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="245dp"
         android:id="@+id/constraintLayoutBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,95 +47,120 @@
         app:layout_constraintStart_toStartOf="@+id/constraintLayoutMain"
         app:layout_constraintTop_toTopOf="@+id/constraintLayoutMain">
 
-        <TextView
-            android:id="@+id/text_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:gravity="center"
-            android:layout_marginBottom="70dp"
-            app:layout_constraintBottom_toTopOf="@id/button_Reset"
-            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
-            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
-            app:layout_constraintTop_toTopOf="@id/constraintLayoutBox"
-            tools:text="@string/question_australia" />
-
         <Button
             android:id="@+id/button_True"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bt_round"
+            style="@style/Widget.AppCompat.Button"
             android:text="@string/buttonTrue"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toTopOf="@id/button_Reset"
-            app:layout_constraintEnd_toStartOf="@id/button_False"
-            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
-            app:layout_constraintTop_toBottomOf="@id/text_question" />
+            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
+            app:layout_constraintStart_toEndOf="@id/button_False"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutBox" />
 
         <Button
             android:id="@+id/button_False"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bt_round"
             android:text="@string/buttonFalse"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toTopOf="@id/button_Reset"
-            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
-            app:layout_constraintStart_toEndOf="@id/button_True"
-            app:layout_constraintTop_toBottomOf="@id/text_question" />
+            app:layout_constraintEnd_toStartOf="@id/button_True"
+            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutBox" />
 
         <Button
             android:id="@+id/button_Next"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bt_round"
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="#FFFFFF"
             android:text="@string/buttonNext"
-            android:textColor="#FFFFFF"
-            app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@id/button_Reset"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toEndOf="@id/button_Prev"
-            app:layout_constraintTop_toBottomOf="@id/button_False" />
-
-        <Button
-            android:id="@+id/button_Prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_arrow_prev"
-            android:drawableTint="#FFF"
-            android:text="@string/buttonPrev"
-            android:textColor="#FFFFFF"
-            app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@id/button_Reset"
-            app:layout_constraintEnd_toStartOf="@id/button_Next"
-            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_True" />
 
         <Button
-            android:id="@+id/button_Reset"
+            android:id="@+id/button_Prev"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="70dp"
+            android:background="@drawable/bt_round"
+            android:drawableLeft="@drawable/ic_arrow_prev"
+            android:drawableTint="#FFFFFF"
+            android:text="@string/buttonPrev"
+            app:layout_constraintEnd_toStartOf="@id/button_Next"
+            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
+            app:layout_constraintTop_toBottomOf="@id/button_False" />
+
+
+        <Button
+            android:id="@+id/button_Reset"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bt_round"
             android:drawableLeft="@drawable/ic_reset"
             android:drawableTint="#FFF"
+            android:paddingStart="3dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1dp"
             android:text="@string/buttonReset"
-            android:textColor="#FFFFFF"
-            app:iconTint="#FFFFFF"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/button_Change_difficult"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
+            app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
+            app:layout_constraintTop_toBottomOf="@id/button_Next" />
+
+        <Button
+            android:id="@+id/button_Change_difficult"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bt_round"
+            android:drawableLeft="@drawable/ic_change"
+            android:drawableTint="#FFF"
+            android:paddingStart="3dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1dp"
+            android:text="@string/buttonChangeDifficult"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/button_Cheat"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
-            app:layout_constraintTop_toBottomOf="@id/text_question" />
+            app:layout_constraintTop_toBottomOf="@id/button_Reset" />
 
         <Button
             android:id="@+id/button_Cheat"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.5"
+            android:background="@drawable/bt_round"
+            android:paddingStart="3dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1dp"
             android:text="@string/cheat_button"
-            android:textColor="#FFFFFF"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/text_tokens"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
-            app:layout_constraintTop_toBottomOf="@id/button_Reset" />
+            app:layout_constraintTop_toBottomOf="@id/button_Change_difficult" />
 
         <TextView
             android:id="@+id/text_tokens"
@@ -113,6 +168,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/amaranth"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/constraintLayoutBox"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
@@ -120,7 +177,6 @@
             tools:text="@string/countTokens" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,22 +61,20 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
     val currentQuestionText: Int get() = questionBank[currentTypeIndex][currentIndex].textResId
-    val sizeQuestionBank: Int get() = questionBank.size
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
-
 
     private fun setCurrentIndex() {
         currentIndex = usedQuestions[usedIndex]
         currentTypeIndex = usedTypeQuestions[usedIndex]
     }
 
-    private fun difficult(): Int{
-        if(difficult == 1){
+    fun difficult(): Int {
+        if (difficult == 1) {
             return 6
         } else {
-            if(difficult == 2) {
+            if (difficult == 2) {
                 return 10
             }
             return 14
@@ -86,10 +84,11 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
     /** *o isCheater = false é para a contagem se o usuário usou cheat naquela pergunta específica
      * Só faz o update se ainda houver questões não mostradas*/
     fun update(): Boolean {
-        return if (usedIndex < (questionBank.size - 1)) {
+        return if (usedIndex < (difficult() - 1)) {
             usedIndex++
             setCurrentIndex()
-            isCheater = false
+            if (difficult < 3)
+                isCheater = false
             true
         } else {
             false
@@ -107,23 +106,27 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         }
     }
 
-    /** * é utilizada a biblioteca random para gerar questionBank.size numeros, que não podem
-     * se repetir, que significaram cada index de questionBank
-     * Depois disso é feito o salvamento de used em savedStateHandle*/
+    /** * é utilizada a biblioteca random para gerar difficult() numeros, onde a combinação
+     * de usedTypeQuestions e usedQuestions não pode ser a mesma.
+     * Depois disso é feito o salvamento dos 'useds' em savedStateHandle*/
     fun buildQuestionList() {
         if (usedTypeQuestions.isEmpty() || (usedTypeQuestions.size == 1)) {
             resetGame()
-            while (usedTypeQuestions.size < questionBank.size) {
-                val numTemp = Random.nextInt(0, (questionBank.size))
-                if (!usedTypeQuestions.contains(numTemp)) {
-                    usedTypeQuestions.add(numTemp)
+
+            while (usedTypeQuestions.size < difficult()) {
+                val numTypeTemp = Random.nextInt(0, (questionBank.size))
+                val numQuestionsTemp = Random.nextInt(0, (Questions.QuestionsBank.countQuestionPerCategory))
+                /** *Teste para impedir repetição de perguntas */
+                for (i in 0 until usedTypeQuestions.size){
+                    if (usedTypeQuestions.size != 0){
+                        if ((usedTypeQuestions[i] == numTypeTemp) && (usedQuestions[i] == numQuestionsTemp)) {
+                            continue
+                        }
+                    }
                 }
-            }
-            while (usedQuestions.size < difficult()) {
-                val numTemp = Random.nextInt(0, (Questions.QuestionsBank.countQuestionPerCategory))
-                if (!usedQuestions.contains(numTemp)) {
-                    usedQuestions.add(numTemp)
-                }
+
+                usedTypeQuestions.add(numTypeTemp)
+                usedQuestions.add(numQuestionsTemp)
             }
             savedStateHandle[Constants.KEY.USED_QUESTION_KEY] = usedQuestions
             savedStateHandle[Constants.KEY.USED_TYPE_QUESTION_KEY] = usedTypeQuestions

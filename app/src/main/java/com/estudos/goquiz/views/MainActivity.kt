@@ -238,9 +238,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val congratulation = getString(
             R.string.msgCongratulations,
             quizViewModel.currentHits,
-            quizViewModel.sizeQuestionBank
+            quizViewModel.difficult()
         )
 
+        binding.textTrueOrFalse.text = ""
         binding.textQuestion.text = congratulation
         binding.buttonPrev.isEnabled = false
         binding.buttonNext.isEnabled = false
@@ -251,6 +252,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun buildQuestionList() {
         quizViewModel.buildQuestionList()
+        binding.textTrueOrFalse.setText(R.string.trueOrFalse)
         binding.textQuestion.setText(quizViewModel.currentQuestionText)
     }
 
