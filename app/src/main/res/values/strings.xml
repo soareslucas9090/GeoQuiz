@@ -13,6 +13,7 @@
     <string name="trueOrFalse">True or False?</string>
     <string name="countTokens">You have %d of %d tokens of cheat!</string>
     <string name="cantCheat">You don\'t have no more tokens of cheat!</string>
+    <string name="yourDifficulty">Your difficulty is %s</string>
 
     <string name="incorrect_toast">Incorrect!</string>
     <string name="answer">Answer</string>
