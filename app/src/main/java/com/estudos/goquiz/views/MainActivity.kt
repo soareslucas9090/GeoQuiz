@@ -1,5 +1,6 @@
 package com.estudos.goquiz.views
 
+import android.content.Intent
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
@@ -14,6 +15,7 @@ import com.estudos.goquiz.viewModels.GoQuizViewModel
 import com.estudos.goquiz.R
 import com.estudos.goquiz.databinding.ActivityMainBinding
 import com.estudos.goquiz.infrastructure.Constants
+import com.estudos.goquiz.infrastructure.SharedPreferencesGoQuiz
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -57,6 +59,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (!SharedPreferencesGoQuiz(this).getBoolean(Constants.KEY.IS_DIFFICULTY_SET_KEY))
+            startActivity(Intent(this, DifficultyActivity::class.java))
 
         /** *builda a lista de questões para iniciar o programa */
         buildQuestionList()
@@ -164,7 +169,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (quizViewModel.currentQuestionAnswer == answer) {
                 if (quizViewModel.isCheater) {
                     Snackbar.make(v, R.string.judgment_toast_ok, Snackbar.LENGTH_SHORT).show()
-                    if (quizViewModel.difficult <= 2) quizViewModel.oneMoreHit()
+                    if (quizViewModel.difficulty <= 2) quizViewModel.oneMoreHit()
                 } else {
                     Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
                     quizViewModel.oneMoreHit()
@@ -249,7 +254,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val congratulation = getString(
             R.string.msgCongratulations,
             quizViewModel.currentHits,
-            quizViewModel.difficult()
+            quizViewModel.difficulty()
         )
 
         binding.textTrueOrFalse.text = ""

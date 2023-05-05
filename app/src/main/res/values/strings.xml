@@ -5,7 +5,7 @@
     <string name="buttonNext">Next</string>
     <string name="buttonPrev">Prev</string>
     <string name="buttonReset">Reset</string>
-    <string name="buttonChangeDifficult">Change Difficult</string>
+    <string name="buttonChangeDifficulty">Change Difficulty</string>
     <string name="msgCorrect">Correct!</string>
     <string name="msgWrong">Wrong!</string>
     <string name="msgNotPrev">Not allowed!</string>
@@ -65,5 +65,12 @@
     <string name="question_spo4">The Super Bowl is the championship game of the National Football League (NFL).</string>
     <string name="question_spo5">Usain Bolt holds the world record for the fastest 100-meter dash.</string>
     <string name="question_spo6">The World Cup is held every two years.</string>
+
+    <string name="choiceDifficulty">Choice your Difficult:</string>
+    <string name="easyDifficulty">Easy</string>
+    <string name="mediumDifficulty">Medium</string>
+    <string name="hardDifficulty">Hard</string>
+    <string name="msgWithoutCheatDifficulty">%d questions.\nCheated answers count!</string>
+    <string name="msgWithCheatDifficulty">%d questions.\nCheated answers do not count!</string>
 
 </resources>

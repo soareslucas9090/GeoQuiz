@@ -14,7 +14,8 @@ class Constants private constructor() {
         const val IS_CHEATER_KEY = "IS_CHEATER_KEY"
         const val IS_CHEATING_KEY = "IS_CHEATING_KEY"
         const val CURRENT_TEXT_CHEAT_KEY = "CURRENT_TEXT_CHEAT_KEY"
-        const val DIFFICULT_KEY = "DIFFICULT_KEY"
+        const val DIFFICULTY_KEY = "DIFFICULTY_KEY"
+        const val IS_DIFFICULTY_SET_KEY = "IS_DIFFICULTY_SET_KEY"
     }
 
     object STATEINTENT {

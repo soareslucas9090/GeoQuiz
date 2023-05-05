@@ -116,13 +116,13 @@
             android:text="@string/buttonReset"
             android:textAlignment="textStart"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/button_Change_difficult"
+            app:layout_constraintBottom_toTopOf="@id/button_Change_difficulty"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_Next" />
 
         <Button
-            android:id="@+id/button_Change_difficult"
+            android:id="@+id/button_Change_difficulty"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -134,7 +134,7 @@
             android:paddingTop="1dp"
             android:paddingEnd="3dp"
             android:paddingBottom="1dp"
-            android:text="@string/buttonChangeDifficult"
+            android:text="@string/buttonChangeDifficulty"
             android:textAlignment="textStart"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/button_Cheat"
@@ -159,7 +159,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_tokens"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
-            app:layout_constraintTop_toBottomOf="@id/button_Change_difficult" />
+            app:layout_constraintTop_toBottomOf="@id/button_Change_difficulty" />
 
         <TextView
             android:id="@+id/text_tokens"
