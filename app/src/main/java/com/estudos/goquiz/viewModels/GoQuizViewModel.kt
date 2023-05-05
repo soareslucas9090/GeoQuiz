@@ -7,7 +7,8 @@ import com.estudos.goquiz.infrastructure.Constants
 import kotlin.random.Random
 
 /** *Implementação de um dicionário savedStateHandle para salvar os dados do jogo
- * o funcionamento principal consiste em gerar uma lista (used) com a ordem das questões geradas aleatoriamente
+ * o funcionamento principal consiste em gerar uma lista de tipos de questÕes (usedTypeQuestions)
+ * e uma lista dos indices de questões (usedQuestions) geradas aleatoriamente
  * esta ordem servem como indice para buscar a determinada questão dentro de questionBank e sua resposta
  * */
 class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
@@ -21,16 +22,17 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         Questions.QuestionsBank.spoQuestions
     )
 
-    /** *currentIndex indica o index que é usado para iterar em questionBank */
+    /** *currentIndex indica o index que é usado para iterar em questionBank.typeQuestions */
     var currentIndex = 0
         get() = savedStateHandle[Constants.KEY.CURRENT_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(Constants.KEY.CURRENT_INDEX_KEY, value)
 
+    /** *currentTypeIndex indica o index que é usado para iterar entre os typeQuestions de questionBank */
     var currentTypeIndex = 0
         get() = savedStateHandle[Constants.KEY.CURRENT_TYPE_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(Constants.KEY.CURRENT_TYPE_INDEX_KEY, value)
 
-    /** *usedIndex indica o index que é usado para iterar dentro de used */
+    /** *usedIndex indica o index que é usado para iterar dentro de usedQuestions e usedTypeQuestions */
     private var usedIndex = 0
         get() = savedStateHandle[Constants.KEY.USED_INDEX_KEY] ?: field
         set(value) = savedStateHandle.set(Constants.KEY.USED_INDEX_KEY, value)
@@ -39,9 +41,11 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         get() = savedStateHandle[Constants.KEY.HITS_KEY] ?: field
         set(value) = savedStateHandle.set(Constants.KEY.HITS_KEY, value)
 
+    /** *List gerada com os indices das questões */
     private val usedQuestions: MutableList<Int> = mutableListOf()
         get() = savedStateHandle[Constants.KEY.USED_QUESTION_KEY] ?: field
 
+    /** *List gerada com os indices dos tipos das questões */
     private val usedTypeQuestions: MutableList<Int> = mutableListOf()
         get() = savedStateHandle[Constants.KEY.USED_TYPE_QUESTION_KEY] ?: field
 
@@ -49,27 +53,32 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         get() = savedStateHandle[Constants.KEY.IS_CHEATER_KEY] ?: field
         set(value) = savedStateHandle.set(Constants.KEY.IS_CHEATER_KEY, value)
 
-    var nCheatTokens: Int
-        get() = savedStateHandle[Constants.STATEINTENT.NUM_CHEAT_TOKEN] ?: nTotalTokens
+    var numCheatTokens: Int
+        get() = savedStateHandle[Constants.STATEINTENT.NUM_CHEAT_TOKEN] ?: numTotalTokens
         set(value) = savedStateHandle.set(Constants.STATEINTENT.NUM_CHEAT_TOKEN, value)
 
     var difficult: Int
         get() = savedStateHandle[Constants.KEY.DIFFICULT_KEY] ?: 1
         set(value) = savedStateHandle.set(Constants.KEY.DIFFICULT_KEY, value)
 
-    val nTotalTokens = 3
+    /** *Variável responsável por armazenar a a quantidade de cheats permitidos */
+    val numTotalTokens = 3
 
+    /** *Variável responsável por armazenar a resposta da pergunta atual */
     val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
+    /** *Variável responsável por armazenar o texto da pergunta atual */
     val currentQuestionText: Int get() = questionBank[currentTypeIndex][currentIndex].textResId
     val currentHits: Int get() = hits
 
     fun oneMoreHit() = hits++
 
+    /** *Apenas faz a atualização dos index */
     private fun setCurrentIndex() {
         currentIndex = usedQuestions[usedIndex]
         currentTypeIndex = usedTypeQuestions[usedIndex]
     }
 
+    /** *Função que guarda a quantidade de questões de acordo com a dificuldade escolhida */
     fun difficult(): Int {
         if (difficult == 1) {
             return 6
@@ -81,14 +90,13 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         }
     }
 
-    /** *o isCheater = false é para a contagem se o usuário usou cheat naquela pergunta específica
+    /** *o isCheater = false é zerar o resgistro se o usuário usou cheat naquela pergunta específica
      * Só faz o update se ainda houver questões não mostradas*/
     fun update(): Boolean {
         return if (usedIndex < (difficult() - 1)) {
             usedIndex++
             setCurrentIndex()
-            if (difficult < 3)
-                isCheater = false
+            isCheater = false
             true
         } else {
             false
@@ -108,7 +116,7 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
 
     /** * é utilizada a biblioteca random para gerar difficult() numeros, onde a combinação
      * de usedTypeQuestions e usedQuestions não pode ser a mesma.
-     * Depois disso é feito o salvamento dos 'useds' em savedStateHandle*/
+     * Depois disso é feito o armazenamento dos 'useds' em savedStateHandle*/
     fun buildQuestionList() {
         if (usedTypeQuestions.isEmpty() || (usedTypeQuestions.size == 1)) {
             resetGame()
@@ -134,6 +142,7 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         }
     }
 
+    /** *Zera e limpa as variáveis para recomeçar o game */
     fun resetGame() {
         currentIndex = 0
         currentTypeIndex = 0
@@ -142,6 +151,6 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         usedTypeQuestions.clear()
         hits = 0
         isCheater = false
-        nCheatTokens = nTotalTokens
+        numCheatTokens = numTotalTokens
     }
 }

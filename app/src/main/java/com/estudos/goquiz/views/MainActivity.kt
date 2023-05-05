@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             /** *result.data nunca será Null, pois esta linha só é executada com Result_Ok, que em
              * CheatActivity, sempre retorna um boolean (true) */
             quizViewModel.isCheater = result.data!!.getBooleanExtra(Constants.STATEINTENT.EXTRA_ANSWER_SHOWN, false)
-            quizViewModel.nCheatTokens--
+            quizViewModel.numCheatTokens--
             countTokens()
         }
     }
@@ -63,8 +63,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         /** *inicia a contagem de numeros de cheats disponíveis/usados */
         countTokens()
 
-        /** *Torna o Botão Cheat borrado nos Android com suporte a RenderEffect.createBlurEffect (API 31) */
+        /** *Aplica o Blur no Botão Cheat apenas nos Android com suporte a RenderEffect.createBlurEffect (API 31)
+         * Caso não disponível aplica 0.5F no alpha do Botão Cheat*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) blurCheatButton()
+        else setAlphaCheatButton()
 
         /** *Implementação com função OnClick */
         binding.textQuestion.setOnClickListener(this)
@@ -75,7 +77,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonReset.setOnClickListener(this)
         binding.buttonCheat.setOnClickListener(this)
 
-        /** *Implementação com Lambda */
+        /** *Implementação com Lambda
+         * Este código foi deixado apenas para amostragem, e foi deixado
+         * de ser atualizado na versão 1.1*/
         /*
         binding.buttonTrue.setOnClickListener {
             response(it)
@@ -153,15 +157,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (v.id == R.id.button_False)
                 answer = false
 
-            /** *Se acertou = + um hit e conferência se houve cheat
+            /** *Se acertou = + um hit, mas caso houver cheat e a dificuldade for maior que 2
+             * não há contagem de hit
              * Caso não, há apenas a mensagem de erro, ou de erro com cheat
              * Depois de ambos os casos, há o update*/
             if (quizViewModel.currentQuestionAnswer == answer) {
-                quizViewModel.oneMoreHit()
                 if (quizViewModel.isCheater) {
                     Snackbar.make(v, R.string.judgment_toast_ok, Snackbar.LENGTH_SHORT).show()
+                    if (quizViewModel.difficult <= 2) quizViewModel.oneMoreHit()
                 } else {
                     Snackbar.make(v, R.string.msgCorrect, Snackbar.LENGTH_SHORT).show()
+                    quizViewModel.oneMoreHit()
                 }
                 update()
             } else {
@@ -194,7 +200,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          * para a criação de uma nova intent com o extra answerIsTrue
          * Caso não, é mostrado a mensagem R.string.cantCheat*/
         if (v.id == R.id.button_Cheat) {
-            if (quizViewModel.nCheatTokens > 0) {
+            if (quizViewModel.numCheatTokens > 0) {
                 val answerIsTrue = quizViewModel.currentQuestionAnswer
                 val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
                 cheatLauncher.launch(intent)
@@ -213,7 +219,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             finishGame()
     }
 
-    /** *Função para dar blue no botão de cheat, apenas executável a partir da API 31 */
+    /** *Função para dar blur no botão de cheat, apenas executável a partir da API 31 */
     @RequiresApi(Build.VERSION_CODES.S)
     private fun blurCheatButton() {
         val effect = RenderEffect.createBlurEffect(
@@ -222,6 +228,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Shader.TileMode.CLAMP
         )
         binding.buttonCheat.setRenderEffect(effect)
+    }
+
+    /** *Função para setar alpha do buttonCheat executada apenas abaixo da API 31 */
+    private fun setAlphaCheatButton() {
+        binding.buttonCheat.alpha = 0.5F
     }
 
     /** *caso o previous na viewModel seja possível, é atualizado o texto de R.id.textQuestion
@@ -252,7 +263,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun buildQuestionList() {
         quizViewModel.buildQuestionList()
-        binding.textTrueOrFalse.setText(R.string.trueOrFalse)
         binding.textQuestion.setText(quizViewModel.currentQuestionText)
     }
 
@@ -262,6 +272,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buildQuestionList()
         countTokens()
         Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
+        binding.textTrueOrFalse.setText(R.string.trueOrFalse)
         binding.buttonPrev.isEnabled = true
         binding.buttonNext.isEnabled = true
         binding.buttonTrue.isEnabled = true
@@ -272,8 +283,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun countTokens() {
         val tokenText = getString(
             R.string.countTokens,
-            quizViewModel.nCheatTokens,
-            quizViewModel.nTotalTokens
+            quizViewModel.numCheatTokens,
+            quizViewModel.numTotalTokens
         )
         binding.textTokens.text = tokenText
     }
