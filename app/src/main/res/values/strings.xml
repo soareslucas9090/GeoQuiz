@@ -73,5 +73,6 @@
     <string name="hardDifficulty">Hard</string>
     <string name="msgWithoutCheatDifficulty">%d questions.\nCheated answers count!</string>
     <string name="msgWithCheatDifficulty">%d questions.\nCheated answers do not count!</string>
+    <string name="save">SAVE</string>
 
 </resources>

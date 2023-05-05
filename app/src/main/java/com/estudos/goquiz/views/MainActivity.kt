@@ -1,10 +1,10 @@
 package com.estudos.goquiz.views
 
-import android.content.Intent
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 //Para Debug: import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val quizViewModel: GoQuizViewModel by viewModels()
 
     /**
-     * Cheat launcher - recebe uma Intent com o resultado do contrato com a CheatActivity
+     * Cheat Launcher - Responsável por chamar a Activity CheattActivity e
+     * receber uma Intent com o resultado do contrato passado
      *
      * A única possibilidade de resultCode implementada é Result_Ok, qualquer outro resultado não precisa
      * ser tratado
@@ -45,9 +46,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (result.resultCode == RESULT_OK) {
             /** *result.data nunca será Null, pois esta linha só é executada com Result_Ok, que em
              * CheatActivity, sempre retorna um boolean (true) */
-            quizViewModel.isCheater = result.data!!.getBooleanExtra(Constants.STATEINTENT.EXTRA_ANSWER_SHOWN, false)
+            quizViewModel.isCheater =
+                result.data!!.getBooleanExtra(Constants.STATEINTENT.EXTRA_ANSWER_SHOWN, false)
             quizViewModel.numCheatTokens--
             countTokens()
+        }
+    }
+
+    /**
+     * Difficulty Launcher - Responsável por chamar a Activity DifficultActivity e
+     * receber uma Intent com o resultado do contrato passado
+     *
+     * A única possibilidade de resultCode implementada é Result_Ok, qualquer outro resultado não precisa
+     * ser tratado
+     *
+     */
+    private val difficultyLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            /** *If para testar se a dificuldade escolhida é diferente da armazenada */
+            if (quizViewModel.difficulty != result.data!!.getIntExtra(Constants.STATEINTENT.NUM_OF_DIFFICULTY, 1)){
+                /** *result.data nunca será Null, pois esta linha só é executada com Result_Ok, que em
+                 * DifficultyActivity, retorna o número da dificuldade */
+                quizViewModel.difficulty =
+                    result.data!!.getIntExtra(Constants.STATEINTENT.NUM_OF_DIFFICULTY, 1)
+                SharedPreferencesGoQuiz(this).storeInt(Constants.KEY.NUM_OF_DIFFICULTY_KEY, quizViewModel.difficulty)
+                resetGame()
+                }
         }
     }
 
@@ -60,9 +86,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (!SharedPreferencesGoQuiz(this).getBoolean(Constants.KEY.IS_DIFFICULTY_SET_KEY))
-            startActivity(Intent(this, DifficultyActivity::class.java))
-
+        /** *Se for a primeira vez que usuário usa o app, ele é obrigado a fornecer uma dificuldade */
+        if (SharedPreferencesGoQuiz(this).getInt(Constants.KEY.NUM_OF_DIFFICULTY_KEY) == 0) launcherDifficulty()
+        /** *Verifica se há valor salvo na SharedPreferences e seta este valor para quizViewModel.difficulty */
+        restoreDifficulty()
         /** *builda a lista de questões para iniciar o programa */
         buildQuestionList()
         /** *inicia a contagem de numeros de cheats disponíveis/usados */
@@ -73,6 +100,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) blurCheatButton()
         else setAlphaCheatButton()
 
+        Log.d(Constants.TAG.MAIN_ACTIVITY_TAG,"main")
+
         /** *Implementação com função OnClick */
         binding.textQuestion.setOnClickListener(this)
         binding.buttonTrue.setOnClickListener(this)
@@ -81,6 +110,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonPrev.setOnClickListener(this)
         binding.buttonReset.setOnClickListener(this)
         binding.buttonCheat.setOnClickListener(this)
+        binding.buttonChangeDifficulty.setOnClickListener(this)
 
         /** *Implementação com Lambda
          * Este código foi deixado apenas para amostragem, e foi deixado
@@ -198,7 +228,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         if (v.id == R.id.button_Reset) {
-            resetGame(v)
+            Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
+            resetGame()
         }
 
         /** *Caso o numero de tokens de cheats seja positivo, é chamado a CheatActivity.newIntent
@@ -213,6 +244,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Snackbar.make(v, R.string.cantCheat, Snackbar.LENGTH_LONG).show()
             }
         }
+
+        if (v.id == R.id.button_Change_difficulty) {
+            launcherDifficulty()
+        }
+
+    }
+
+    private fun launcherDifficulty (){
+        val intent = DifficultyActivity.newIntent(this@MainActivity, quizViewModel.difficulty, quizViewModel.possibilityOfDifficulty())
+        difficultyLauncher.launch(intent)
     }
 
     /** *caso o update na viewModel seja possível, é atualizado o texto de R.id.textQuestion
@@ -249,6 +290,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Snackbar.make(v, R.string.msgNotPrev, Snackbar.LENGTH_LONG).show()
     }
 
+    private fun restoreDifficulty(){
+        val sharedPreferenceDifficulty = SharedPreferencesGoQuiz(this).getInt(Constants.KEY.NUM_OF_DIFFICULTY_KEY)
+        if (sharedPreferenceDifficulty != 0){
+            quizViewModel.difficulty = sharedPreferenceDifficulty
+        }
+    }
+
     /** *Mostra a mensagem de R.string.msgCongratulations, e desativa os botões do jogo */
     private fun finishGame() {
         val congratulation = getString(
@@ -269,14 +317,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun buildQuestionList() {
         quizViewModel.buildQuestionList()
         binding.textQuestion.setText(quizViewModel.currentQuestionText)
+        binding.textDifficulty.text = String.format(
+            getString (R.string.yourDifficulty),
+            getString(quizViewModel.textDifficult()))
     }
 
     /** *ativa os botões do jogo, faz o rebuild, recontagem e chama a resetGame da ViewModel */
-    private fun resetGame(v: View) {
+    private fun resetGame() {
         quizViewModel.resetGame()
         buildQuestionList()
         countTokens()
-        Snackbar.make(v, R.string.msgReset, Snackbar.LENGTH_SHORT).show()
         binding.textTrueOrFalse.setText(R.string.trueOrFalse)
         binding.buttonPrev.isEnabled = true
         binding.buttonNext.isEnabled = true

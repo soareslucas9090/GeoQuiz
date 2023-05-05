@@ -35,7 +35,7 @@
         android:id="@+id/text_choiceDifficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="150dp"
         android:text="@string/choiceDifficulty"
         android:textColor="@color/white"
         android:textSize="32sp"
@@ -50,7 +50,7 @@
         android:id="@+id/radioGroup_choiceDifficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="160dp"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/text_choiceDifficulty"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +99,20 @@
         app:layout_constraintTop_toBottomOf="@id/radioGroup_choiceDifficulty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_save"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bt_round_white"
+        android:fontFamily="@font/amaranth"
+        android:textColor="@color/purple_1"
+        android:text="@string/save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup_choiceDifficulty"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 

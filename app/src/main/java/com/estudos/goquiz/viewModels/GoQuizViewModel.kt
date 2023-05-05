@@ -1,7 +1,9 @@
 package com.estudos.goquiz.viewModels
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.estudos.goquiz.R
 import com.estudos.goquiz.data.Questions
 import com.estudos.goquiz.infrastructure.Constants
 import kotlin.random.Random
@@ -70,7 +72,22 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
     val currentQuestionText: Int get() = questionBank[currentTypeIndex][currentIndex].textResId
     val currentHits: Int get() = hits
 
+    private val easyDifficulty = 6
+    private val mediumDifficulty = 10
+    private val hardDifficulty = 14
+
     fun oneMoreHit() = hits++
+
+    @StringRes fun textDifficult(): Int {
+       if (difficulty == 1) {
+            return R.string.easyDifficulty
+        } else {
+            if (difficulty == 2){
+                return R.string.mediumDifficulty
+            }
+        }
+        return R.string.hardDifficulty
+    }
 
     /** *Apenas faz a atualização dos index */
     private fun setCurrentIndex() {
@@ -81,13 +98,17 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
     /** *Função que guarda a quantidade de questões de acordo com a dificuldade escolhida */
     fun difficulty(): Int {
         if (difficulty == 1) {
-            return 6
+            return easyDifficulty
         } else {
             if (difficulty == 2) {
-                return 10
+                return mediumDifficulty
             }
-            return 14
+            return hardDifficulty
         }
+    }
+
+    fun possibilityOfDifficulty(): IntArray {
+        return intArrayOf(easyDifficulty,mediumDifficulty,hardDifficulty)
     }
 
     /** *o isCheater = false é zerar o resgistro se o usuário usou cheat naquela pergunta específica

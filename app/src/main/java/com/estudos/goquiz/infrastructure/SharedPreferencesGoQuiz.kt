@@ -9,12 +9,12 @@ class SharedPreferencesGoQuiz(context: Context) {
     private val preference: SharedPreferences =
         context.getSharedPreferences("${R.string.app_name}", Context.MODE_PRIVATE)
 
-    fun storeString(key: String, isDifficultySet: Boolean){
-        preference.edit().putBoolean(key, isDifficultySet).apply()
+    fun storeInt(key: String, difficultySet: Int){
+        preference.edit().putInt(key, difficultySet).apply()
     }
 
-    fun getBoolean(key:String): Boolean{
-        return preference.getBoolean(key, false)
+    fun getInt(key:String): Int{
+        return preference.getInt(key, 0)
     }
 
 }

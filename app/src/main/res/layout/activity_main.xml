@@ -36,8 +36,10 @@
         app:layout_constraintTop_toBottomOf="@id/text_appName" />
 
     <View
+        android:id="@+id/view_line"
         android:layout_width="200dp"
         android:layout_height="2dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/dw_line_purple1"
         app:layout_constraintEnd_toEndOf="@id/constraintLayoutMain"
         app:layout_constraintStart_toStartOf="@id/constraintLayoutMain"
@@ -48,14 +50,14 @@
         android:id="@+id/text_true_or_false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/amaranth"
         android:gravity="center"
         android:text="@string/trueOrFalse"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/constraintLayoutMain"
         app:layout_constraintStart_toStartOf="@id/constraintLayoutMain"
-        app:layout_constraintTop_toBottomOf="@id/text_appName" />
+        app:layout_constraintTop_toBottomOf="@id/view_line" />
 
     <TextView
         android:id="@+id/text_question"
@@ -63,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/amaranth"
         android:gravity="center"
         android:text=""
@@ -74,7 +76,7 @@
         tools:text="@string/question_geo1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="245dp"
+        android:layout_marginTop="250dp"
         android:id="@+id/constraintLayoutBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,122 +85,131 @@
         app:layout_constraintStart_toStartOf="@+id/constraintLayoutMain"
         app:layout_constraintTop_toTopOf="@+id/constraintLayoutMain">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_True"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bt_round"
+            android:background="@drawable/bt_round_purple_1"
+            android:backgroundTint="@color/greenTrue"
             style="@style/Widget.AppCompat.Button"
             android:fontFamily="@font/amaranth"
             android:text="@string/buttonTrue"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toEndOf="@id/button_False"
             app:layout_constraintTop_toTopOf="@id/constraintLayoutBox" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_False"
-            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bt_round"
+            android:background="@drawable/bt_round_purple_1"
+            android:backgroundTint="@color/redFalse"
+            style="@style/Widget.AppCompat.Button"
             android:fontFamily="@font/amaranth"
             android:text="@string/buttonFalse"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/button_True"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toTopOf="@id/constraintLayoutBox" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Next"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/bt_round"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bt_round_purple_1"
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="#FFFFFF"
             android:fontFamily="@font/amaranth"
             android:text="@string/buttonNext"
+            android:textColor="@color/white"
+            android:paddingEnd="5dp"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toEndOf="@id/button_Prev"
             app:layout_constraintTop_toBottomOf="@id/button_True" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Prev"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/bt_round"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bt_round_purple_1"
             android:drawableLeft="@drawable/ic_arrow_prev"
             android:drawableTint="#FFFFFF"
             android:fontFamily="@font/amaranth"
             android:text="@string/buttonPrev"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
             app:layout_constraintEnd_toStartOf="@id/button_Next"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_False" />
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Reset"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/bt_round"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bt_round_purple_1"
             android:drawableLeft="@drawable/ic_reset"
             android:drawableTint="#FFF"
-            android:paddingStart="3dp"
+            android:paddingStart="10dp"
             android:paddingTop="1dp"
-            android:paddingEnd="3dp"
+            android:paddingEnd="10dp"
             android:paddingBottom="1dp"
             android:text="@string/buttonReset"
-            android:textAlignment="textStart"
             android:fontFamily="@font/amaranth"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/button_Change_difficulty"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_Next" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Change_difficulty"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bt_round"
+            android:background="@drawable/bt_round_purple_1"
             android:drawableLeft="@drawable/ic_change"
             android:drawableTint="#FFF"
-            android:paddingStart="3dp"
+            android:paddingStart="10dp"
             android:paddingTop="1dp"
-            android:paddingEnd="3dp"
+            android:paddingEnd="10dp"
             android:paddingBottom="1dp"
             android:text="@string/buttonChangeDifficulty"
             android:fontFamily="@font/amaranth"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/button_Cheat"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"
             app:layout_constraintTop_toBottomOf="@id/button_Reset" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Cheat"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bt_round"
+            android:background="@drawable/bt_round_purple_1"
             android:paddingStart="3dp"
             android:paddingTop="1dp"
             android:paddingEnd="3dp"
             android:paddingBottom="1dp"
             android:text="@string/cheat_button"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/text_tokens"
             app:layout_constraintEnd_toEndOf="@id/constraintLayoutBox"
             app:layout_constraintStart_toStartOf="@id/constraintLayoutBox"

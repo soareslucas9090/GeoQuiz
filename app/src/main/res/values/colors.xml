@@ -2,8 +2,10 @@
 <resources>
     <color name="purple_1">#FF380B78</color>
     <color name="purple_2">#3B2668</color>
-    <color name="orange_1">#DD3500</color>
-    <color name="orange_2">#C13003</color>
+    <color name="orange_1">#F66537</color>
+    <color name="orange_2">#DC5B33</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="greenTrue">#116C14</color>
+    <color name="redFalse">#95150B</color>
 </resources>
