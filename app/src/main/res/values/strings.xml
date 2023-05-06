@@ -1,78 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <string name="app_name">GoQuiz</string>
-    <string name="buttonTrue">True</string>
-    <string name="buttonFalse">False</string>
-    <string name="buttonNext">Next</string>
-    <string name="buttonPrev">Prev</string>
-    <string name="buttonReset">Reset</string>
-    <string name="buttonChangeDifficulty">Change Difficulty</string>
-    <string name="msgCorrect">Correct!</string>
-    <string name="msgWrong">Wrong!</string>
-    <string name="msgNotPrev">Not allowed!</string>
-    <string name="msgReset">Reset!</string>
-    <string name="trueOrFalse">True or False?</string>
-    <string name="countTokens">You have %d of %d tokens of cheat!</string>
-    <string name="cantCheat">You don\'t have no more tokens of cheat!</string>
-    <string name="yourDifficulty">Your difficulty is %s</string>
+    <string name="buttonTrue">Verdadeiro</string>
+    <string name="buttonFalse">Falso</string>
+    <string name="buttonNext">Avançar</string>
+    <string name="buttonPrev">Anterior</string>
+    <string name="buttonReset">Reiniciar</string>
+    <string name="buttonChangeDifficulty">Alterar Dificuldade</string>
+    <string name="msgCorrect">Correto!</string>
+    <string name="msgWrong">Errado!</string>
+    <string name="msgNotPrev">Não permitido!</string>
+    <string name="msgReset">Reiniciar!</string>
+    <string name="trueOrFalse">Verdadeiro ou falso?</string>
+    <string name="countTokens">Você tem %d de %d tokens de trapaça!</string>
+    <string name="cantCheat">Você não tem mais fichas de trapaça!</string>
+    <string name="yourDifficulty">Sua dificuldade é %s</string>
 
-    <string name="incorrect_toast">Incorrect!</string>
-    <string name="answer">Answer</string>
-    <string name="warning_text">Are you sure you want to do this?</string>
-    <string name="show_answer_button">Show Answer</string>
-    <string name="cheat_button">Cheat!</string>
-    <string name="judgment_toast_ok">Cheating is wrong.</string>
-    <string name="judgment_toast_wrong">Even cheating, you made a mistake.</string>
+    <string name="incorrect_toast">Incorreto!</string>
+    <string name="answer">Resposta</string>
+    <string name="warning_text">Tem certeza de que deseja fazer isso?</string>
+    <string name="show_answer_button">Mostrar resposta</string>
+    <string name="cheat_button">Trapaça!</string>
+    <string name="judgment_toast_ok">Trapacear é errado.</string>
+    <string name="judgment_toast_wrong">Mesmo trapaceando, você cometeu um erro.</string>
 
-    <string name="msgCongratulations">Congratulations, you got %d out of %d!</string>
+    <string name="msgCongratulations">Parabéns, você tirou %d de %d!</string>
 
-    <string name="question_geo1">Canberra is the capital of Australia.</string>
-    <string name="question_geo2">The Pacific Ocean is larger than the Atlantic Ocean.</string>
-    <string name="question_geo3">The Suez Canal connects the Red Sea and the Indian Ocean.</string>
-    <string name="question_geo4">The source of the Nile River is in Egypt.</string>
-    <string name="question_geo5">The Amazon River is the longest river in the Americas.</string>
-    <string name="question_geo6">Lake Baikal is the world\'s oldest and deepest freshwater lake.</string>
+    <string name="question_geo1">Canberra é a capital da Austrália.</string>
+    <string name="question_geo2">O Oceano Pacífico é maior que o Oceano Atlântico.</string>
+    <string name="question_geo3">O Canal de Suez conecta o Mar Vermelho e o Oceano Índico.</string>
+    <string name="question_geo4">A nascente do rio Nilo fica no Egito.</string>
+    <string name="question_geo5">O rio Amazonas é o maior rio das Américas.</string>
+    <string name="question_geo6">O Lago Baikal é o lago de água doce mais antigo e profundo do mundo.</string>
 
-    <string name="question_tec1">The iPhone was first released in 2007.</string>
-    <string name="question_tec2">The first computer virus was created in the 1970s.</string>
-    <string name="question_tec3">The acronym "URL" stands for "Universal Resource Locator.</string>
-    <string name="question_tec4">HTML is a programming language.</string>
-    <string name="question_tec5">The first search engine was called "Archie."</string>
-    <string name="question_tec6">The term "Bluetooth" comes from a 10th-century Danish king named Harald Bluetooth.</string>
+    <string name="question_tec1">O iPhone foi lançado pela primeira vez em 2007.</string>
+    <string name="question_tec2">O primeiro vírus de computador foi criado na década de 1970.</string>
+    <string name="question_tec3">O acrônimo "URL" significa "Universal Resource Locator".</string>
+    <string name="question_tec4">HTML é uma linguagem de programação.</string>
+    <string name="question_tec5">O primeiro mecanismo de busca se chamava "Archie."</string>
+    <string name="question_tec6">O termo "Bluetooth" vem de um rei dinamarquês do século X chamado Harald Bluetooth.</string>
 
-    <string name="question_sci1">The Earth is the third planet from the sun in our solar system.</string>
-    <string name="question_sci2">The human body has four lungs.</string>
-    <string name="question_sci3">The speed of light is approximately 186,000 miles per second.</string>
-    <string name="question_sci4">The pH scale is used to measure acidity or basicity of a solution.</string>
-    <string name="question_sci5">Oxygen is the most abundant element in the Earth\'s atmosphere.</string>
-    <string name="question_sci6">The theory of relativity was first proposed by Isaac Newton.</string>
+    <string name="question_sci1">A Terra é o terceiro planeta a contar do Sol no nosso sistema solar.</string>
+    <string name="question_sci2">O corpo humano tem quatro pulmões.</string>
+    <string name="question_sci3">A velocidade da luz é de aproximadamente 186.000 milhas por segundo.</string>
+    <string name="question_sci4">A escala de pH é usada para medir a acidez ou basicidade de uma solução.</string>
+    <string name="question_sci5">O oxigênio é o elemento mais abundante na atmosfera da Terra.</string>
+    <string name="question_sci6">A teoria da relatividade foi proposta pela primeira vez por Isaac Newton.</string>
 
-    <string name="question_his1">The French Revolution began in 1789.</string>
-    <string name="question_his2">The fall of the Berlin Wall occurred in 1989.</string>
-    <string name="question_his3">The first successful English colony in North America was Jamestown.</string>
-    <string name="question_his4">The Black Death originated in Asia in the 14th century and spread to Europe, killing millions of people.</string>
-    <string name="question_his5">The Treaty of Versailles ended World War II.</string>
-    <string name="question_his6">The Roman Empire was founded in 27 BC and lasted until 476 AD.</string>
+    <string name="question_his1">A Revolução Francesa começou em 1789.</string>
+    <string name="question_his2">A queda do Muro de Berlim ocorreu em 1989.</string>
+    <string name="question_his3">A primeira colônia inglesa bem-sucedida na América do Norte foi Jamestown.</string>
+    <string name="question_his4">A peste negra se originou na Ásia no século 14 e se espalhou para a Europa, matando milhões de pessoas.</string>
+    <string name="question_his5">O Tratado de Versalhes pôs fim à Segunda Guerra Mundial.</string>
+    <string name="question_his6">O Império Romano foi fundado em 27 AC e durou até 476 DC.</string>
 
-    <string name="question_art1">Michelangelo painted the ceiling of the Sistine Chapel.</string>
-    <string name="question_art2">The Mona Lisa was painted by Vincent van Gogh.</string>
-    <string name="question_art3">The Impressionist movement originated in France in the late 19th century.</string>
-    <string name="question_art4">Beethoven composed the Ninth Symphony.</string>
-    <string name="question_art5">"The Starry Night" is a painting by Claude Monet.</string>
-    <string name="question_art6">Shakespeare wrote the play "Romeo and Juliet."</string>
+    <string name="question_art1">Michelangelo pintou o teto da Capela Sistina.</string>
+    <string name="question_art2">A Mona Lisa foi pintada por Vincent van Gogh.</string>
+    <string name="question_art3">O movimento impressionista teve origem na França no final do século XIX.</string>
+    <string name="question_art4">Beethoven compôs a Nona Sinfonia.</string>
+    <string name="question_art5">"A Noite Estrelada" é uma pintura de Claude Monet.</string>
+    <string name="question_art6">Shakespeare escreveu a peça "Romeu e Julieta."</string>
 
-    <string name="question_spo1">The Olympics are held every four years.</string>
-    <string name="question_spo2">Lionel Messi is a Brazilian soccer player.</string>
-    <string name="question_spo3">Michael Jordan is widely regarded as one of the greatest basketball players of all time.</string>
-    <string name="question_spo4">The Super Bowl is the championship game of the National Football League (NFL).</string>
-    <string name="question_spo5">Usain Bolt holds the world record for the fastest 100-meter dash.</string>
-    <string name="question_spo6">The World Cup is held every two years.</string>
+    <string name="question_spo1">As Olimpíadas acontecem a cada quatro anos.</string>
+    <string name="question_spo2">Lionel Messi é um jogador de futebol brasileiro.</string>
+    <string name="question_spo3">Michael Jordan é considerado um dos maiores jogadores de basquete de todos os tempos.</string>
+    <string name="question_spo4">O Super Bowl é o jogo do campeonato da National Football League (NFL).</string>
+    <string name="question_spo5">Usain Bolt detém o recorde mundial da corrida de 100 metros mais rápida.</string>
+    <string name="question_spo6">A Copa do Mundo é realizada a cada dois anos.</string>
 
-    <string name="choiceDifficulty">Choice your Difficult:</string>
-    <string name="easyDifficulty">Easy</string>
-    <string name="mediumDifficulty">Medium</string>
-    <string name="hardDifficulty">Hard</string>
-    <string name="msgWithoutCheatDifficulty">%d questions.\nCheated answers count!</string>
-    <string name="msgWithCheatDifficulty">%d questions.\nCheated answers do not count!</string>
-    <string name="save">SAVE</string>
+    <string name="choiceDifficulty">Escolha sua dificuldade:</string>
+    <string name="easyDifficulty">Fácil</string>
+    <string name="mediumDifficulty">Médio</string>
+    <string name="hardDifficulty">Difícil</string>
+    <string name="msgWithoutCheatDifficulty">%d perguntas.\nRespostas trapaceadas contam!</string>
+    <string name="msgWithCheatDifficulty">%d perguntas.\nRespostas trapaceadas não contam!</string>
+    <string name="save">SALVAR</string>
 
 </resources>
