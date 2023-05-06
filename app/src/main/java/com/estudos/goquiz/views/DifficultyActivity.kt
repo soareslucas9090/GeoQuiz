@@ -5,19 +5,17 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
-import androidx.annotation.StringRes
 import com.estudos.goquiz.R
 import com.estudos.goquiz.databinding.ActivityDifficultyBinding
-import com.estudos.goquiz.databinding.ActivityMainBinding
 import com.estudos.goquiz.infrastructure.Constants
-import com.estudos.goquiz.viewModels.GoQuizViewModel
 
+/** *Implementação com OnClickListener novamente, como na Main Activity */
 class DifficultyActivity : AppCompatActivity(), OnClickListener {
 
     private lateinit var binding: ActivityDifficultyBinding
+    /** *As próximas duas variáveis são as que recebem os dois extras passados na ActivityMain */
     private var numDifficulty = 1
     private var possibilityOfDifficulty = intArrayOf(0)
 
@@ -37,6 +35,8 @@ class DifficultyActivity : AppCompatActivity(), OnClickListener {
         binding.radioButtonMedium.setOnClickListener(this)
         binding.radioButtonHard.setOnClickListener(this)
 
+        /** *Deixa o determinado radioButton como checkado e atualiza o texto de explicação
+         * da dificuldade */
         if (numDifficulty == 1) {
             binding.radioGroupChoiceDifficulty.check(R.id.radioButton_easy)
             setMsgDifficult(numDifficulty)
@@ -49,9 +49,11 @@ class DifficultyActivity : AppCompatActivity(), OnClickListener {
                 setMsgDifficult(numDifficulty)
             }
         }
-
     }
 
+    /** *Objeto de classe para guardar a função de criação de uma nova intent com os dois putExtra
+     * No caso, NUM_OF_DIFFICULTY e POSSIBILITY_OF_DIFFICULTY, a dificuldade atual e quais as quantidades
+     * de perguntas das dificuldades atuais*/
     companion object {
         fun newIntent(packageContext: Context, numDifficulty: Int, possibilityOfDifficulty: IntArray): Intent {
             return Intent(packageContext, DifficultyActivity::class.java).apply {
@@ -71,11 +73,12 @@ class DifficultyActivity : AppCompatActivity(), OnClickListener {
                 else
                     3
             }
-            val intentShowResult = Intent().apply {
-                putExtra(Constants.STATEINTENT.NUM_OF_DIFFICULTY, choice)
+            /** *Armazena a intent com o extra de NUM_OF_DIFFICULTY_CHOSEN */
+            val numOfDifficulty = Intent().apply {
+                putExtra(Constants.STATEINTENT.NUM_OF_DIFFICULTY_CHOSEN, choice)
             }
-            setResult(Activity.RESULT_OK, intentShowResult)
-            Log.d(Constants.TAG.DIFFICULTY_ACTIVITY_TAG,"Cheguei")
+            setResult(Activity.RESULT_OK, numOfDifficulty)
+            /** *Finaliza a Activity logo depois que ela retorna o resultado à MainActivity */
             finish()
         }
         if (v.id == R.id.radioButton_easy){
@@ -89,6 +92,7 @@ class DifficultyActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    /** *Apenas para montar a mensagem de explicação da dificuldade */
     private fun setMsgDifficult(difficulty: Int){
         if (difficulty == 1) {
             val temp = getString(R.string.msgWithoutCheatDifficulty, possibilityOfDifficulty[0])
@@ -103,5 +107,4 @@ class DifficultyActivity : AppCompatActivity(), OnClickListener {
             }
         }
     }
-
 }

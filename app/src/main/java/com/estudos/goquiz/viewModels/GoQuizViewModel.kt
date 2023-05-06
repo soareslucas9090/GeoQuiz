@@ -65,19 +65,20 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
 
     /** *Variável responsável por armazenar a a quantidade de cheats permitidos */
     val numTotalTokens = 3
-
     /** *Variável responsável por armazenar a resposta da pergunta atual */
     val currentQuestionAnswer: Boolean get() = questionBank[currentTypeIndex][currentIndex].answer
     /** *Variável responsável por armazenar o texto da pergunta atual */
     val currentQuestionText: Int get() = questionBank[currentTypeIndex][currentIndex].textResId
     val currentHits: Int get() = hits
 
+    /** *Variáveis usadas para setar a quantidade de perguntas de acordo com cada dificuldade */
     private val easyDifficulty = 6
     private val mediumDifficulty = 10
     private val hardDifficulty = 14
 
     fun oneMoreHit() = hits++
 
+    /** *Retorna o nome da dificuldade */
     @StringRes fun textDifficult(): Int {
        if (difficulty == 1) {
             return R.string.easyDifficulty
@@ -95,7 +96,7 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         currentTypeIndex = usedTypeQuestions[usedIndex]
     }
 
-    /** *Função que guarda a quantidade de questões de acordo com a dificuldade escolhida */
+    /** *Função que retorna a quantidade de questões de acordo com a dificuldade escolhida */
     fun difficulty(): Int {
         if (difficulty == 1) {
             return easyDifficulty
@@ -107,11 +108,12 @@ class GoQuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         }
     }
 
+    /** *Esta função retorna apenas um array com as quantidade de perguntas de cada dificuldade */
     fun possibilityOfDifficulty(): IntArray {
         return intArrayOf(easyDifficulty,mediumDifficulty,hardDifficulty)
     }
 
-    /** *o isCheater = false é zerar o resgistro se o usuário usou cheat naquela pergunta específica
+    /** *o isCheater = false é para zerar o registro se o usuário usou cheat naquela pergunta específica
      * Só faz o update se ainda houver questões não mostradas*/
     fun update(): Boolean {
         return if (usedIndex < (difficulty() - 1)) {

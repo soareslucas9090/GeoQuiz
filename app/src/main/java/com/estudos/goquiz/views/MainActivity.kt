@@ -251,6 +251,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    /** *É chamado newIntent da DifficultyActivity, levando quizViewModel.difficulty e quizViewModel.possibilityOfDifficulty()
+     * como parâmetros, que serviram como extras da Intent criada*/
     private fun launcherDifficulty (){
         val intent = DifficultyActivity.newIntent(this@MainActivity, quizViewModel.difficulty, quizViewModel.possibilityOfDifficulty())
         difficultyLauncher.launch(intent)
@@ -290,6 +292,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Snackbar.make(v, R.string.msgNotPrev, Snackbar.LENGTH_LONG).show()
     }
 
+    /** *Verifica se há valor salvo em SharedPreferencesGoQuiz e atualiza a ViewModel com este valor*/
     private fun restoreDifficulty(){
         val sharedPreferenceDifficulty = SharedPreferencesGoQuiz(this).getInt(Constants.KEY.NUM_OF_DIFFICULTY_KEY)
         if (sharedPreferenceDifficulty != 0){
@@ -314,6 +317,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonCheat.isEnabled = false
     }
 
+    /** *Rebuilda as questões, atualiza o texto de textQuestion e o texto de textDifficulty */
     private fun buildQuestionList() {
         quizViewModel.buildQuestionList()
         binding.textQuestion.setText(quizViewModel.currentQuestionText)
@@ -344,6 +348,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.textTokens.text = tokenText
     }
 
+    /** *Usada para testar algumas funções */
     override fun onDestroy() {
         //Para Debug: Log.d(TAG, "Destroy")
         super.onDestroy()

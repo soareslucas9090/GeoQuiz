@@ -8,6 +8,7 @@ class Questions private constructor(@StringRes val textResId: Int, val answer: B
 
     object QuestionsBank {
 
+        /** *A implementação atual precisa que todas as categorias tenham o mesmo número de perguntas */
         const val countQuestionPerCategory = 6
 
         val geoQuestions = listOf(

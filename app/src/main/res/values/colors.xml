@@ -6,6 +6,7 @@
     <color name="orange_2">#DC5B33</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="greenTrue">#116C14</color>
-    <color name="redFalse">#95150B</color>
+    <color name="greenTrue">#0D7A11</color>
+    <color name="redFalse">#8E170E</color>
+    <color name="greyDisabled">#5E5E5E</color>
 </resources>
